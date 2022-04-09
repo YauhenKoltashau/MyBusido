@@ -7,7 +7,7 @@
   color: white;
   text-decoration: none;
 }
-.item a.active{
+.item .active{
   color: gold;
 }
 

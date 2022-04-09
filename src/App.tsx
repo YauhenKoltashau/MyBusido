@@ -12,11 +12,11 @@ const App = () => {
     return (
         <BrowserRouter>
         <div className={"app-wrapper"}>
-            <Header/>
+            <Header />
             <Navbar/>
             <div className={"app-wrapper-content"}>
 
-                <Route path={'/dialogs'} render={Dialogs}/>
+                <Route path={'/dialogs'} render={()=><Dialogs/>}/>
                 <Route path={'/profile'} render={()=><Content/>}/>
             </div>
 
@@ -32,11 +32,11 @@ const App = () => {
         </BrowserRouter>
     );
 }
-type AppTitlePropsType = {
+/*type AppTitlePropsType = {
     title: string
 }
-const AppTitle = (props: AppTitlePropsType) => {
+const AppTitle: React.FC<AppTitlePropsType> = (props) => {
     return <div>{props.title}</div>
-}
+}*/
 
 export default App;

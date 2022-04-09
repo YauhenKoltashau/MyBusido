@@ -4,14 +4,24 @@ import React from "react";
 
 export const MyPosts = () => {
     return (
-        <div className={classes.posts}>MyPosts
+        <div className={classes.postsBlock}>
+            <h3>MyPosts</h3>
             <div>
-                <textarea placeholder={"Add comment"}></textarea>
-                <button>Add post</button>
+                <div>
+                    <textarea placeholder={"Add comment"}></textarea>
+                </div>
+                <div>
+                    <button>Add post</button>
+                </div>
+
 
             </div>
-            <Post message={"It's my first post"} likesCount={10}/>
-            <Post message={"How are you!"} likesCount={7}/>
+            <div className={classes.posts}>
+                <Post message={"It's my first post"} likesCount={10}/>
+                <Post message={"How are you!"} likesCount={7}/>
+            </div>
+
+
         </div>
 
     )

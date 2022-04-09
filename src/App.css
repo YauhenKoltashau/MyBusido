@@ -50,7 +50,8 @@
 
 .app-wrapper-content {
     grid-area: c;
-    background-color: blue;
+    background-color: #61dafb;
+
 }
 .app-wrapper-content img {
     width: 150vh;

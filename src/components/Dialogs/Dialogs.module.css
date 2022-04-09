@@ -1,6 +1,7 @@
 .dialogs {
     display: grid;
     grid-template-columns: 2fr 10fr;
+    color: white;
 
 }
 
@@ -8,11 +9,8 @@
     padding: 10px;
     color: white;
 
-}
-.dialogItems .active {
-    color: gold;
-}
 
+}
 .messages {
     padding: 10px;
     color: white;
@@ -24,7 +22,7 @@
 
 }
 
-.dialog {
-
+.dialog .dialogActive{
+color: gold;
 }
 
