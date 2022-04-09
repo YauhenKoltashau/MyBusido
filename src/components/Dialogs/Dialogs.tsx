@@ -36,7 +36,7 @@ export const Dialogs = () =>{
 
             </div>
             <div className={classes.messages}>
-                <Message message={"Hi!"}/>
+                <Message message={"Hi, man!"}/>
                 <Message message={"How is your progress?"}/>
                 <Message message={"Anyone be able to become a programmer"}/>
 
