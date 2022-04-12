@@ -7,28 +7,36 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Content} from "./components/Content/Content";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
+import {dialogsType, messagesType, postsDataType} from "./index";
 
-const App = () => {
+export type postsAppPropsType = {
+    postData: Array<postsDataType>
+    dialogs: Array<dialogsType>
+    messages: Array<messagesType>
+}
+
+const App = (props: postsAppPropsType) => {
     return (
         <BrowserRouter>
-        <div className={"app-wrapper"}>
-            <Header />
-            <Navbar/>
-            <div className={"app-wrapper-content"}>
+            <div className={"app-wrapper"}>
+                <Header/>
+                <Navbar/>
+                <div className={"app-wrapper-content"}>
 
-                <Route path={'/dialogs'} render={()=><Dialogs/>}/>
-                <Route path={'/profile'} render={()=><Content/>}/>
-            </div>
+                    <Route path={'/dialogs'} render={() => <Dialogs dialogs={props.dialogs}
+                                                                    messages={props.messages}
+                    />}/>
+                    <Route path={'/profile'} render={() => <Content postsData={props.postData}/>}/>
+                </div>
 
 
-
-        {/*<AppTitle title={"This is APP component"}/>
+                {/*<AppTitle title={"This is APP component"}/>
             <AppTitle title={"My friends"}/>
             <Accordion title={"Menu"} colapsed={false}/>
             <Accordion title={"Users"} colapsed={true}/>
             <Rating value={5}/>*/}
 
-        </div>
+            </div>
         </BrowserRouter>
     );
 }
