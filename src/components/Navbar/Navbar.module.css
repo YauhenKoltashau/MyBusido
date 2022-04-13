@@ -10,4 +10,12 @@
 .item .active{
   color: gold;
 }
+.friends {
+
+}
+.friends img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+}
 

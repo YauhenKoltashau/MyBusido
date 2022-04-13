@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./Post.module.css";
-import {postsDataType} from "../../../../index";
+import {postsDataType} from "../../../../redux/state";
+
 
 
 type PostPropsType = postsDataType
