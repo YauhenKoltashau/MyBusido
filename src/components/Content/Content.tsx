@@ -7,13 +7,20 @@ import {postsDataType} from "../../redux/state";
 
 type ContentPropsType = {
     postsData: Array<postsDataType>
+    // callBack: (newPost:string)=>void
+    // newMessage: string
+    callBackAdd: (newText: string) => void
 }
 
 export const Content= (props:ContentPropsType) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts postsData={props.postsData}/>
+            <MyPosts postsData={props.postsData}
+                     // callBack={props.callBack}
+                     // newMessage={props.newMessage}
+                     callBackAdd={props.callBackAdd}
+            />
 
         </div>
     )

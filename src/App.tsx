@@ -7,7 +7,7 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Content} from "./components/Content/Content";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {statePropsType} from "./redux/state";
+import {addNewMessage, statePropsType} from "./redux/state";
 type  postsAppPropsType = {
     state: statePropsType
 
@@ -23,7 +23,11 @@ const App = (props: postsAppPropsType) => {
                     <Route path={'/dialogs'} render={() => <Dialogs dialogs={props.state.dialogsPage.dialogs}
                                                                     messages={props.state.dialogsPage.messages}
                     />}/>
-                    <Route path={'/profile'} render={() => <Content postsData={props.state.contentPage.postsData}/>}/>
+                    <Route path={'/profile'} render={() => <Content postsData={props.state.contentPage.postsData}
+                                                                    // newMessage={props.state.contentPage.newMessage}
+                                                                    // callBack={addPost}
+                                                                    callBackAdd={addNewMessage}
+                    />}/>
                 </div>
 
 
