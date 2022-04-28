@@ -8,7 +8,10 @@ type postsMyPostsType = {
     postsData: Array<postsDataType>
     // callBack: (newPost: string) => void
     // newMessage: string
-    callBackAdd: (newText: string) => void
+    callBackAdd: () => void
+    newPostText: string
+    updateNewPostText:(newText: string)=>void
+
 }
 
 
@@ -16,26 +19,27 @@ export const MyPosts = (props: postsMyPostsType) => {
     let postItem = props.postsData.map((p) =>
         <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>)
 
-    let [newMessage, setNewMessage] = useState('')
+    // let [newMessage, setNewMessage] = useState('')
+
     const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setNewMessage(e.currentTarget.value)
+        props.updateNewPostText(e.currentTarget.value)
+            }
 
-
-    }
     const addPostOnClick = () => {
+        props.callBackAdd()
 
-        if (newMessage) {
-            props.callBackAdd(newMessage.trim())
-            newMessage=''
-            console.log(newMessage)
-        }
+
     }
+
+
+
     return (
         <div className={classes.postsBlock}>
             <h3>MyPosts</h3>
             <div>
                 <div>
-                    <textarea onChange={onChangeTextareaHandler}></textarea>
+                    <textarea onChange={onChangeTextareaHandler} value={props.newPostText}
+                    />
                 </div>
                 <div>
                     <button onClick={addPostOnClick}>Add post</button>

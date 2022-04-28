@@ -9,7 +9,9 @@ type ContentPropsType = {
     postsData: Array<postsDataType>
     // callBack: (newPost:string)=>void
     // newMessage: string
-    callBackAdd: (newText: string) => void
+    callBackAdd: () => void
+    newPostText:string
+    updateNewPostText: (newText: string)=>void
 }
 
 export const Content= (props:ContentPropsType) => {
@@ -20,6 +22,8 @@ export const Content= (props:ContentPropsType) => {
                      // callBack={props.callBack}
                      // newMessage={props.newMessage}
                      callBackAdd={props.callBackAdd}
+                     newPostText={props.newPostText}
+                     updateNewPostText={props.updateNewPostText}
             />
 
         </div>

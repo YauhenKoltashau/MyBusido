@@ -7,28 +7,34 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Content} from "./components/Content/Content";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {addNewMessage, statePropsType} from "./redux/state";
+import {storeType } from "./redux/state";
+
 type  postsAppPropsType = {
-    state: statePropsType
+    store: storeType
 
 }
 const App = (props: postsAppPropsType) => {
+
     return (
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <Header/>
-                <Navbar sideBar={props.state.sideBarPage.sideBar}/>
+                <Navbar sideBar={props.store._state.sideBarPage.sideBar}/>
                 <div className={"app-wrapper-content"}>
 
-                    <Route path={'/dialogs'} render={() => <Dialogs dialogs={props.state.dialogsPage.dialogs}
-                                                                    messages={props.state.dialogsPage.messages}
+                    <Route path={'/dialogs'} render={() => <Dialogs dialogs={props.store.getState().dialogsPage.dialogs}
+                                                                    messages={props.store.getState().dialogsPage.messages}
                     />}/>
-                    <Route path={'/profile'} render={() => <Content postsData={props.state.contentPage.postsData}
+                    <Route path={'/profile'} render={() => <Content postsData={props.store.getState().contentPage.postsData}
                                                                     // newMessage={props.state.contentPage.newMessage}
                                                                     // callBack={addPost}
-                                                                    callBackAdd={addNewMessage}
+                                                                    callBackAdd={props.store.addNewMessage.bind(props.store)}
+                                                                    newPostText={props.store.getState().contentPage.newPostText}
+                                                                    updateNewPostText={props.store.updateNewPostText.bind(props.store)}
                     />}/>
                 </div>
+
+
 
 
                 {/*<AppTitle title={"This is APP component"}/>
