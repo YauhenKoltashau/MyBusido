@@ -7,30 +7,34 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Content} from "./components/Content/Content";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {storeType } from "./redux/state";
+import {StorePropsType} from "./redux/redux-store";
+
+
 
 type  postsAppPropsType = {
-    store: storeType
-
+    store: StorePropsType
 }
 const App = (props: postsAppPropsType) => {
+    const dialogsPage = props.store.getState().dialogPage
+    const dispatch = props.store.dispatch
+    const contentPage = props.store.getState().contentPage
 
     return (
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <Header/>
-                <Navbar sideBar={props.store._state.sideBarPage.sideBar}/>
+                <Navbar sideBar={props.store.getState().sideBarPage.sideBar}/>
                 <div className={"app-wrapper-content"}>
 
-                    <Route path={'/dialogs'} render={() => <Dialogs dialogs={props.store.getState().dialogsPage.dialogs}
-                                                                    messages={props.store.getState().dialogsPage.messages}
+                    <Route path={'/dialogs'} render={() => <Dialogs dialogs={dialogsPage.dialogs}
+                                                                    messages={dialogsPage.messages}
+                                                                    dispatch={dispatch.bind(props.store)}
+                                                                    newMessageUserText={dialogsPage.newMessageUser}
                     />}/>
-                    <Route path={'/profile'} render={() => <Content postsData={props.store.getState().contentPage.postsData}
-                                                                    // newMessage={props.state.contentPage.newMessage}
-                                                                    // callBack={addPost}
-                                                                    callBackAdd={props.store.addNewMessage.bind(props.store)}
-                                                                    newPostText={props.store.getState().contentPage.newPostText}
-                                                                    updateNewPostText={props.store.updateNewPostText.bind(props.store)}
+                    <Route path={'/profile'} render={() => <Content postsData={contentPage.postsData}
+                                                                    dispatch={dispatch.bind(props.store)}
+                                                                    newPostText={contentPage.newPostText}
+
                     />}/>
                 </div>
 

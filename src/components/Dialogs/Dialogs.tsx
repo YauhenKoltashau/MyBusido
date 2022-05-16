@@ -1,23 +1,29 @@
 import {NavLink} from 'react-router-dom';
 import classes from './Dialogs.module.css';
-import React, {ChangeEvent, RefObject, useState} from "react";
+import React, {ChangeEvent} from "react";
 import {DialogItem} from "./DialogItem/DialogsItem";
 import {Message} from "./Message/Message";
-import {dialogsType, messagesType} from "../../redux/state";
+import {
+    ActionCreatorReturnTypes, DialogsDialogType, MessageDialogType,
+
+} from "../../redux/redux-store";
+import {addMessageAC, createNewMessageUserAC} from "../../redux/dialogsReducer";
 
 type DialogsPagePropsType = {
-    dialogs: Array<dialogsType>
-    messages: Array<messagesType>
+    dialogs: DialogsDialogType
+    messages: MessageDialogType
+    dispatch:(action:ActionCreatorReturnTypes)=>void
+    newMessageUserText: string
 }
 export const Dialogs = (props: DialogsPagePropsType) => {
-    let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
-    const addPost = () => {
-        let text = newPostElement.current?.value
-        console.log(text)
+    const newMessageUser = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(createNewMessageUserAC(e.currentTarget.value))
+    }
+    const addMessage = () => {
+        props.dispatch(addMessageAC())
     }
 
-
-    let dialogsElement = props.dialogs.map((d,index) =>
+    let dialogsElement = props.dialogs.map((d) =>
         <DialogItem key={d.id} name={d.name} id={d.id}/>
     )
     let messagesItem = props.messages.map((m) =>
@@ -30,8 +36,8 @@ export const Dialogs = (props: DialogsPagePropsType) => {
 
             <div className={classes.messages}>
                 {messagesItem}
-                <textarea ref={newPostElement}></textarea>
-                <button onClick={addPost}>Add</button>
+                <textarea placeholder={'Enter your message'} onChange={newMessageUser} value={props.newMessageUserText}></textarea>
+                <button onClick={addMessage}>Add</button>
             </div>
         </div>
     )

@@ -1,16 +1,15 @@
 import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import React, {ChangeEvent, ChangeEventHandler, RefObject, useState} from "react";
-import {postsDataType} from "../../../redux/state";
-
+import React, {ChangeEvent} from "react";
+import {ActionCreatorReturnTypes, PostDataContentType} from "../../../redux/redux-store";
+import {addNewMessageAC, addPostAC} from '../../../redux/contentReducer'
 
 type postsMyPostsType = {
-    postsData: Array<postsDataType>
+    postsData: PostDataContentType
     // callBack: (newPost: string) => void
     // newMessage: string
-    callBackAdd: () => void
+    dispatch: (action:ActionCreatorReturnTypes) => void
     newPostText: string
-    updateNewPostText:(newText: string)=>void
 
 }
 
@@ -19,19 +18,14 @@ export const MyPosts = (props: postsMyPostsType) => {
     let postItem = props.postsData.map((p) =>
         <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>)
 
-    // let [newMessage, setNewMessage] = useState('')
-
     const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(e.currentTarget.value)
+       let text = e.currentTarget.value
+        props.dispatch(addNewMessageAC(text))
             }
 
     const addPostOnClick = () => {
-        props.callBackAdd()
-
-
+        props.dispatch(addPostAC())
     }
-
-
 
     return (
         <div className={classes.postsBlock}>

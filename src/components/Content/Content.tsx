@@ -2,16 +2,14 @@ import React from "react";
 import './Content.module.css';
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {postsDataType} from "../../redux/state";
+import {ActionCreatorReturnTypes, PostDataContentType} from "../../redux/redux-store";
 
 
 type ContentPropsType = {
-    postsData: Array<postsDataType>
-    // callBack: (newPost:string)=>void
-    // newMessage: string
-    callBackAdd: () => void
+    postsData: PostDataContentType
+    dispatch: (action: ActionCreatorReturnTypes) => void
     newPostText:string
-    updateNewPostText: (newText: string)=>void
+
 }
 
 export const Content= (props:ContentPropsType) => {
@@ -19,11 +17,8 @@ export const Content= (props:ContentPropsType) => {
         <div>
             <ProfileInfo/>
             <MyPosts postsData={props.postsData}
-                     // callBack={props.callBack}
-                     // newMessage={props.newMessage}
-                     callBackAdd={props.callBackAdd}
+                     dispatch={props.dispatch}
                      newPostText={props.newPostText}
-                     updateNewPostText={props.updateNewPostText}
             />
 
         </div>
