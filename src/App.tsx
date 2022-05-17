@@ -8,34 +8,35 @@ import {Content} from "./components/Content/Content";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {StorePropsType} from "./redux/redux-store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import StoreContext from "./StoreContext";
 
 
 
-type  postsAppPropsType = {
-    store: StorePropsType
-}
-const App = (props: postsAppPropsType) => {
-    const dialogsPage = props.store.getState().dialogPage
-    const dispatch = props.store.dispatch
-    const contentPage = props.store.getState().contentPage
+
+const App = () => {
+    // const dialogsPage = props.store.getState().dialogPage
+    // const dispatch = props.store.dispatch
+    // const contentPage = props.store.getState().contentPage
 
     return (
-        <BrowserRouter>
+
             <div className={"app-wrapper"}>
                 <Header/>
-                <Navbar sideBar={props.store.getState().sideBarPage.sideBar}/>
+                <StoreContext.Consumer>
+                    {(store)=>{
+                        let sideBar = store.getState().sideBarPage.sideBar
+                        return(
+                            <Navbar sideBar={sideBar}/>
+                        )
+
+                    }}
+                </StoreContext.Consumer>
+
                 <div className={"app-wrapper-content"}>
 
-                    <Route path={'/dialogs'} render={() => <Dialogs dialogs={dialogsPage.dialogs}
-                                                                    messages={dialogsPage.messages}
-                                                                    dispatch={dispatch.bind(props.store)}
-                                                                    newMessageUserText={dialogsPage.newMessageUser}
-                    />}/>
-                    <Route path={'/profile'} render={() => <Content postsData={contentPage.postsData}
-                                                                    dispatch={dispatch.bind(props.store)}
-                                                                    newPostText={contentPage.newPostText}
-
-                    />}/>
+                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                    <Route path={'/profile'} render={() => <Content/>}/>
                 </div>
 
 
@@ -48,7 +49,7 @@ const App = (props: postsAppPropsType) => {
             <Rating value={5}/>*/}
 
             </div>
-        </BrowserRouter>
+
     );
 }
 /*type AppTitlePropsType = {

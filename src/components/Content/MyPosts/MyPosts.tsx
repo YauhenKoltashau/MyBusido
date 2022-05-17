@@ -1,18 +1,14 @@
 import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import React, {ChangeEvent} from "react";
-import {ActionCreatorReturnTypes, PostDataContentType} from "../../../redux/redux-store";
-import {addNewMessageAC, addPostAC} from '../../../redux/contentReducer'
+import {PostDataContentType} from "../../../redux/redux-store";
 
 type postsMyPostsType = {
-    postsData: PostDataContentType
-    // callBack: (newPost: string) => void
-    // newMessage: string
-    dispatch: (action:ActionCreatorReturnTypes) => void
+    postsData:PostDataContentType
+    addNewMessage:(text:string)=>void
+    addPostOnClick:()=>void
     newPostText: string
-
 }
-
 
 export const MyPosts = (props: postsMyPostsType) => {
     let postItem = props.postsData.map((p) =>
@@ -20,11 +16,11 @@ export const MyPosts = (props: postsMyPostsType) => {
 
     const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
        let text = e.currentTarget.value
-        props.dispatch(addNewMessageAC(text))
+        props.addNewMessage(text)
             }
 
     const addPostOnClick = () => {
-        props.dispatch(addPostAC())
+        props.addPostOnClick()
     }
 
     return (

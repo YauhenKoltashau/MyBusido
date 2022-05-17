@@ -3,24 +3,22 @@ import classes from './Dialogs.module.css';
 import React, {ChangeEvent} from "react";
 import {DialogItem} from "./DialogItem/DialogsItem";
 import {Message} from "./Message/Message";
-import {
-    ActionCreatorReturnTypes, DialogsDialogType, MessageDialogType,
+import {DialogsDialogType, MessageDialogType} from "../../redux/redux-store";
 
-} from "../../redux/redux-store";
-import {addMessageAC, createNewMessageUserAC} from "../../redux/dialogsReducer";
 
 type DialogsPagePropsType = {
-    dialogs: DialogsDialogType
-    messages: MessageDialogType
-    dispatch:(action:ActionCreatorReturnTypes)=>void
-    newMessageUserText: string
+    newMessageUser:(text:string)=>void
+    addMessage:()=>void
+    dialogs:DialogsDialogType
+    messages:MessageDialogType
+    newMessageUserText:string
 }
 export const Dialogs = (props: DialogsPagePropsType) => {
     const newMessageUser = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(createNewMessageUserAC(e.currentTarget.value))
+        props.newMessageUser(e.currentTarget.value)
     }
     const addMessage = () => {
-        props.dispatch(addMessageAC())
+        props.addMessage()
     }
 
     let dialogsElement = props.dialogs.map((d) =>
