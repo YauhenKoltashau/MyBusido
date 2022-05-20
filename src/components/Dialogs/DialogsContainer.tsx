@@ -1,15 +1,7 @@
-import {NavLink} from 'react-router-dom';
-import classes from './Dialogs.module.css';
-import React, {ChangeEvent} from "react";
-import {DialogItem} from "./DialogItem/DialogsItem";
-import {Message} from "./Message/Message";
-import {
-    ActionCreatorReturnTypes, DialogsDialogType, MessageDialogType,
-
-} from "../../redux/redux-store";
+import React from "react";
 import {addMessageAC, createNewMessageUserAC} from "../../redux/dialogsReducer";
 import {Dialogs} from "./Dialogs";
-import StoreContext from './../../StoreContext'
+import StoreContext from '../../StoreContext'
 
 export const DialogsContainer = () => {
 

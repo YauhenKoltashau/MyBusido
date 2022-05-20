@@ -1,27 +1,14 @@
-import classes from "./MyPosts.module.css";
-import {Post} from "./Post/Post";
-import React, {ChangeEvent} from "react";
-import {ActionCreatorReturnTypes, PostDataContentType} from "../../../redux/redux-store";
+import React from "react";
 import {addNewMessageAC, addPostAC} from '../../../redux/contentReducer'
 import {MyPosts} from "./MyPosts";
-import StoreContext from './../../../StoreContext'
-
-type postsMyPostsType = {
-    postsData: PostDataContentType
-    // callBack: (newPost: string) => void
-    // newMessage: string
-    dispatch: (action:ActionCreatorReturnTypes) => void
-    newPostText: string
-
-}
+import StoreContext from '../../../StoreContext'
 
 
 export const MyPostsContainer = () => {
     return (
         <StoreContext.Consumer>
             {(store)=>{
-                const postsData = store.getState().contentPage.postsData
-                const postDataContentPage = postsData
+                const postDataContentPage = store.getState().contentPage.postsData
                 const addNewMessage = (text: string) => {
                 store.dispatch(addNewMessageAC(text))
             }
