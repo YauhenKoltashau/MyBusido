@@ -4,7 +4,7 @@ import React, {ChangeEvent} from "react";
 import {PostDataContentType} from "../../../redux/redux-store";
 
 type postsMyPostsType = {
-    postsData:PostDataContentType
+    postsData: PostDataContentType
     addNewMessage:(text:string)=>void
     addPostOnClick:()=>void
     newPostText: string

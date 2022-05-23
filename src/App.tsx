@@ -7,9 +7,11 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Content} from "./components/Content/Content";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {StorePropsType} from "./redux/redux-store";
+// import {StorePropsType} from "./redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import StoreContext from "./StoreContext";
+import {NavBarContainer} from "./components/Navbar/NavBarContainer";
+
+// import StoreContext from "./StoreContext";
 
 
 
@@ -23,15 +25,7 @@ const App = () => {
 
             <div className={"app-wrapper"}>
                 <Header/>
-                <StoreContext.Consumer>
-                    {(store)=>{
-                        let sideBar = store.getState().sideBarPage.sideBar
-                        return(
-                            <Navbar sideBar={sideBar}/>
-                        )
-
-                    }}
-                </StoreContext.Consumer>
+                <NavBarContainer/>
 
                 <div className={"app-wrapper-content"}>
 
