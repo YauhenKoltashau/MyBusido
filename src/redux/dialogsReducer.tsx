@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionCreatorReturnTypes, MessageType} from "./redux-store";
+import {ActionCreatorReturnTypes} from "./redux-store";
 
 export const createNewMessageUserAC = (text: string) => {
     return {
@@ -30,13 +30,10 @@ let initialState = {
 export const dialogsReducer = (state=initialState, action: ActionCreatorReturnTypes) => {
     switch (action.type) {
         case "ADD-NEW-MESSAGE-USER":
-            state.newMessageUser = action.newMessageUserText
-            return state
+            return {...state,newMessageUser: action.newMessageUserText}
         case 'ADD-MESSAGE':
-            const mewMessageUser: MessageType = {id: v1(), message: state.newMessageUser}
-            state.messages.push(mewMessageUser)
-            state.newMessageUser = ''
-            return state
+            const newMessageUser = {id: v1(), message: state.newMessageUser}
+            return {...state,messages: [...state.messages,newMessageUser],newMessageUser: ''}
         default:
             return state
     }
