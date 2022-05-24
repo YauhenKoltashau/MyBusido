@@ -1,16 +1,10 @@
 import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import React, {ChangeEvent} from "react";
-import {PostDataContentType} from "../../../redux/redux-store";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
-type postsMyPostsType = {
-    postsData: PostDataContentType
-    addNewMessage:(text:string)=>void
-    addPostOnClick:()=>void
-    newPostText: string
-}
 
-export const MyPosts = (props: postsMyPostsType) => {
+export const MyPosts = (props: MyPostsPropsType) => {
     let postItem = props.postsData.map((p) =>
         <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>)
 

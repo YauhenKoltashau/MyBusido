@@ -3,23 +3,18 @@ import './App.css';
 import {Accordion} from "./components/Accordion/Accordion";
 import {Rating} from "./components/Rating/Rating";
 import {Header} from "./components/Header/Header";
-import {Navbar} from "./components/Navbar/Navbar";
 import {Content} from "./components/Content/Content";
-import {Dialogs} from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
-// import {StorePropsType} from "./redux/redux-store";
+import {Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {NavBarContainer} from "./components/Navbar/NavBarContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
-// import StoreContext from "./StoreContext";
+
 
 
 
 
 const App = () => {
-    // const dialogsPage = props.store.getState().dialogPage
-    // const dispatch = props.store.dispatch
-    // const contentPage = props.store.getState().contentPage
 
     return (
 
@@ -31,6 +26,7 @@ const App = () => {
 
                     <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                     <Route path={'/profile'} render={() => <Content/>}/>
+                    <Route path={'/users'} render={() => <UsersContainer/>}/>
                 </div>
 
 

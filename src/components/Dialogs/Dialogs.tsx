@@ -1,19 +1,10 @@
-import {NavLink} from 'react-router-dom';
 import classes from './Dialogs.module.css';
 import React, {ChangeEvent} from "react";
 import {DialogItem} from "./DialogItem/DialogsItem";
 import {Message} from "./Message/Message";
-import {DialogsDialogType, MessageDialogType} from "../../redux/redux-store";
+import {DialogsPropsType} from "./DialogsContainer";
 
-
-type DialogsPagePropsType = {
-    newMessageUser:(text:string)=>void
-    addMessage:()=>void
-    dialogs:DialogsDialogType
-    messages:MessageDialogType
-    newMessageUserText:string
-}
-export const Dialogs = (props: DialogsPagePropsType) => {
+export const Dialogs = (props: DialogsPropsType) => {
     const newMessageUser = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.newMessageUser(e.currentTarget.value)
     }

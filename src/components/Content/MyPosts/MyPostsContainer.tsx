@@ -1,57 +1,40 @@
 import React from "react";
-import {addNewMessageAC, addPostAC} from '../../../redux/contentReducer'
+import {
+    addNewMessageAC,
+    addPostAC,
+    PostsDataType
+} from '../../../redux/contentReducer'
 import {MyPosts} from "./MyPosts";
-// import StoreContext from '../../../StoreContext'
 import {connect} from "react-redux";
-import {AppStateType, DispatchesType, PostDataContentType} from "../../../redux/redux-store";
+import {AppStateType} from "../../../redux/redux-store";
+import { Dispatch } from "redux";
 
-
-// export const MyPostsContainer = () => {
-//     return (
-//         <StoreContext.Consumer>
-//             {(store)=>{
-//                 const postDataContentPage = store.getState().contentPage.postsData
-//                 const addNewMessage = (text: string) => {
-//                 store.dispatch(addNewMessageAC(text))
-//             }
-//
-//                 const addPostOnClick = () => {
-//                 store.dispatch(addPostAC())
-//             }
-//             return(
-//                 <MyPosts
-//                 addNewMessage={addNewMessage}
-//                 addPostOnClick={addPostOnClick}
-//                 postsData={postDataContentPage}
-//                 newPostText={store.getState().contentPage.newPostText}
-//                 />
-//                 )
-//             }}
-//         </StoreContext.Consumer>
-//
-//
-//     )
-// }
-type MapStatePropsType = {
-    postsData: PostDataContentType
+type mapStateToPropsType = {
+    postsData: PostsDataType
     newPostText: string
 }
+type mapDispatchToPropsType = {
+    addNewMessage: (text: string) => void
+    addPostOnClick: () => void
+}
+export type MyPostsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-let mapStateToProps = (state:AppStateType): MapStatePropsType => {
-    return{
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+    return {
         postsData: state.contentPage.postsData,
         newPostText: state.contentPage.newPostText
     }
 }
-let mapDispatchToProps = (dispatch: DispatchesType) => {
-    return{
-        addNewMessage:(text:string)=> {
+
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+    return {
+        addNewMessage: (text: string) => {
             dispatch(addNewMessageAC(text))
         },
-        addPostOnClick:()=>{
+        addPostOnClick: () => {
             dispatch(addPostAC())
         }
     }
 }
 
-export const MyPostsContainer = connect (mapStateToProps, mapDispatchToProps)(MyPosts)
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
