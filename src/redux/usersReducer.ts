@@ -1,16 +1,26 @@
 
 
 export type UsersReducerTypesAC =ReturnType<typeof FollowAC>| ReturnType<typeof UnfollowAC>| ReturnType<typeof SetUsersAC>
-export type UserType = {id:string, fullName:string,followed: boolean,photoUrl:string,status:string,location:{city:{id:string,title:string},country:{id:string,title:string}}}
+export type UserType = {
+    name: string
+    id: number
+    uniqueUrlName: null
+    photos: {
+        small: undefined | string | null,
+        large: undefined | string | null
+    }
+    status: null,
+    followed: boolean
+}
 export type UsersType = Array<UserType>
 
-export const FollowAC = (id:string) =>{
+export const FollowAC = (id:number) =>{
     return{
         type: 'FOLLOW',
         id: id
     }as const
 }
-export const UnfollowAC = (id: string) =>{
+export const UnfollowAC = (id: number) =>{
     return{
         type: 'UNFOLLOW',
         id: id

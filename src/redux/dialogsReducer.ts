@@ -1,5 +1,20 @@
 import {v1} from "uuid";
 import {ActionCreatorReturnTypes} from "./redux-store";
+export type MessageType = {
+    id: string
+    message: string
+}
+export type MessagesType = Array<MessageType>
+export type DialogType = {
+    id: string
+    name: string
+}
+export type DialogsType = Array<DialogType>
+export type DialogsPageStateType = {
+    dialogs:DialogsType
+    messages:MessagesType
+    newMessageUser: string
+}
 
 export const createNewMessageUserAC = (text: string) => {
     return {
@@ -7,8 +22,9 @@ export const createNewMessageUserAC = (text: string) => {
         newMessageUserText: text
     } as const
 }
+
 export const addMessageAC = () => ({type: 'ADD-MESSAGE'} as const)
-let initialState = {
+let initialState:DialogsPageStateType = {
         dialogs: [
             {id: v1(), name: "Yauhen"},
             {id: v1(), name: "Irina"},
@@ -27,7 +43,7 @@ let initialState = {
         newMessageUser: ""
     }
 
-export const dialogsReducer = (state=initialState, action: ActionCreatorReturnTypes) => {
+export const dialogsReducer = (state:DialogsPageStateType=initialState, action: ActionCreatorReturnTypes):DialogsPageStateType => {
     switch (action.type) {
         case "ADD-NEW-MESSAGE-USER":
             return {...state,newMessageUser: action.newMessageUserText}
