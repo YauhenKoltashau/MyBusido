@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './users.module.css'
-import userImage from './../images/userImage.jpeg'
+import userImage from '../assets/userImage.jpeg'
 import {v1} from "uuid";
 import {UsersType} from "../../redux/usersReducer";
 

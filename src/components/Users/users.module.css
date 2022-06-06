@@ -1,14 +1,21 @@
+.usersStyle {
+    padding-top: 5px;
+}
 .usersStyle img {
+    border-radius: 50px;
     width: 50px;
     height: 50px;
 }
+
+
 .chosedPage {
-    background: red;
+    background: whitesmoke;
     border-radius: 2px;
     padding: 3px;
     border: 1px black solid;
     font-weight: bolder;
 }
+
 .unChosedPage {
     padding: 1px;
     border: 1px black solid;

@@ -3,7 +3,7 @@ import React from "react";
 import styles from './users.module.css'
 import {UsersPropsType} from "./UsersContainer";
 import axios from "axios";
-import userImage from './../images/userImage.jpeg'
+import userImage from '../assets/userImage.jpeg'
 
 const Users2 = (props: UsersPropsType) => {
     const getUsers = () => {
