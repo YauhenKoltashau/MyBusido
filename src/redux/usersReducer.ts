@@ -1,6 +1,11 @@
 
 
-export type UsersReducerTypesAC =ReturnType<typeof FollowAC>| ReturnType<typeof UnfollowAC>| ReturnType<typeof SetUsersAC>
+export type UsersReducerTypesAC =ReturnType<typeof FollowAC>
+    | ReturnType<typeof UnfollowAC>
+    | ReturnType<typeof SetUsersAC>
+    | ReturnType<typeof SetTotalUsersAC>
+    | ReturnType<typeof SetCurrentPageAC>
+    | ReturnType<typeof setUsersOnPageAC>
 export type UserType = {
     name: string
     id: number
@@ -13,6 +18,12 @@ export type UserType = {
     followed: boolean
 }
 export type UsersType = Array<UserType>
+export type initialStateType = {
+    users: UsersType
+    totalCount: number
+    currentPageNumber: number
+    usersOnPage: number
+}
 
 export const FollowAC = (id:number) =>{
     return{
@@ -32,18 +43,50 @@ export const SetUsersAC = (users:UsersType) =>{
         usersState:users
     }as const
 }
+export const SetTotalUsersAC = (totalUsers: number) => {
+    return{
+        type: 'SET-TOTAL-USERS',
+        totalUsers: totalUsers
+    }as const
+}
+export const SetCurrentPageAC = (pageNumber: number) => {
+    return{
+        type: 'SET-PAGE-NUMBER',
+        pageNumber:pageNumber
+    }as const
+}
+export const setUsersOnPageAC = (usersOn: number) => {
+    return {
+        type: 'SET-USERS-ON-PAGE',
+        usersOn: usersOn
+    }as const
+}
 
-const Users:UsersType = []
+const initialState: initialStateType = {
+    users:[],
+    totalCount:0,
+    currentPageNumber:1,
+    usersOnPage:10
+}
 
 
-export const UsersReducer = (state:UsersType=Users,action:UsersReducerTypesAC):UsersType => {
+export const UsersReducer = (state:initialStateType=initialState,action:UsersReducerTypesAC):initialStateType => {
     switch (action.type) {
         case "FOLLOW":
-            return state.map((u)=>u.id===action.id?{...u,followed:true}:u)
+            // copyState = copyState,state.items=[...state.items].map((u)=>u.id===action.id?{...u,followed:true}:u)
+            return {...state,users:[...state.users].map((u)=>u.id===action.id?{...u,followed:true}:u)}
         case "UNFOLLOW":
-            return state.map((u)=>u.id===action.id?{...u,followed:false}:u)
+            return {...state,users:[...state.users].map((u) => u.id === action.id ? {...u, followed: false} : u)}
         case "SET-USERS":
-            return [...state,...action.usersState]
+            return {...state,users:action.usersState}
+        case "SET-TOTAL-USERS":
+            return {...state,totalCount:action.totalUsers}
+        case "SET-PAGE-NUMBER":
+            return {...state,currentPageNumber:action.pageNumber}
+        case "SET-USERS-ON-PAGE":
+            return {...state,usersOnPage:action.usersOn}
+
+
     }
     return state
 }

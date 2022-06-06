@@ -7,17 +7,10 @@ import {Content} from "./components/Content/Content";
 import {Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {NavBarContainer} from "./components/Navbar/NavBarContainer";
-import {UsersContainer} from "./components/Users/UsersContainer";
-
-
-
-
-
+import UsersContainer from "./components/Users/UsersContainer";
 
 const App = () => {
-
     return (
-
             <div className={"app-wrapper"}>
                 <Header/>
                 <NavBarContainer/>
@@ -28,16 +21,11 @@ const App = () => {
                     <Route path={'/profile'} render={() => <Content/>}/>
                     <Route path={'/users'} render={() => <UsersContainer/>}/>
                 </div>
-
-
-
-
                 {/*<AppTitle title={"This is APP component"}/>
             <AppTitle title={"My friends"}/>
             <Accordion title={"Menu"} colapsed={false}/>
             <Accordion title={"Users"} colapsed={true}/>
             <Rating value={5}/>*/}
-
             </div>
 
     );
