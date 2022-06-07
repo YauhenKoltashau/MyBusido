@@ -34,7 +34,6 @@ export type PostsDataType = Array<PostType>
 export type ContentPageType = {
     postsData: PostsDataType
     newPostText: string
-    isFetching: boolean
     profile: ProfileUserType
 }
 
@@ -64,7 +63,6 @@ const initialState: ContentPageType = {
         {id: v1(), message: "How are you!", likesCount: 3}
     ],
     newPostText: "my post works",
-    isFetching: false,
     profile:<ProfileUserType> {}
 
 

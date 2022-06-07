@@ -1,27 +1,32 @@
 import {Content} from "./Content";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {ContentPageType, ProfileUserType, setIsFetching, setUserProfile} from "../../redux/contentReducer";
+import { ProfileUserType, setIsFetching, setUserProfile} from "../../redux/contentReducer";
 import React from "react";
 import axios from "axios";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
+type PathParamsType = {
+    userId: string,
+}
+type ComponentWithRouterPropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
 type mapStateToPropsType = {
-    state: ContentPageType
+    profile: ProfileUserType
 }
 type mapDispatchToPropsType = {
     setUserProfile:(profile: ProfileUserType)=> void
-    setIsFetching:(isFetching:boolean)=>void
 
 }
 export type ProfileContainerPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-class ProfileContainer extends React.Component<ProfileContainerPropsType>{
+class ProfileContainer extends React.Component<ComponentWithRouterPropsType>{
     componentDidMount() {
-        this.props.setIsFetching(true)
-        axios.get('https://social-network.samuraijs.com/api/1.0/profile/2').then(response =>
+        let userId = this.props.match.params.userId
+        if (!userId) {
+            userId='2'
+        }
+        axios.get('https://social-network.samuraijs.com/api/1.0/profile/'+userId).then(response =>
             {
-                console.log(response.data)
-                this.props.setIsFetching(false)
                 this.props.setUserProfile(response.data)
 
             }
@@ -30,15 +35,15 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType>{
 
     render() {
         return (
-            <Content {...this.props} state={this.props.state}/>
+            <Content {...this.props} profile={this.props.profile}/>
         )
     }
 }
 
 const mapStateToPropsType = (state: AppStateType):mapStateToPropsType => {
     return {
-        state: state.contentPage
+        profile: state.contentPage.profile
     }
 }
-
-export default connect (mapStateToPropsType,{setUserProfile, setIsFetching})(ProfileContainer)
+let WithUrlDataContainerComponent = withRouter(ProfileContainer);
+export default connect (mapStateToPropsType,{setUserProfile})(WithUrlDataContainerComponent)
