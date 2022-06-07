@@ -3,6 +3,7 @@ import styles from './users.module.css'
 import userImage from '../assets/userImage.jpeg'
 import {v1} from "uuid";
 import {UsersType} from "../../redux/usersReducer";
+import {NavLink} from 'react-router-dom';
 
 type PageType = {
     id: string,
@@ -40,7 +41,9 @@ export const Users = (props: UsersFunctionPropsType) => {
             {props.usersState.map(u => <div key={u.id}>
                 <span>
                     <div key={u.id} className={styles.usersStyle}>
+                        <NavLink to={`/profile/${u.id}`}>
                         <img src={u.photos.small !== null ? u.photos.small : userImage} alt={"img"}/>
+                            </NavLink>
                     </div>
                     <div>
                         {u.followed

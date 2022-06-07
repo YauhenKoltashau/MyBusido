@@ -1,16 +1,15 @@
 import React from "react";
 import './Content.module.css';
-
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-// import {ActionCreatorReturnTypes, PostDataContentType} from "../../redux/redux-store";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+import {ProfileContainerPropsType} from "./ProfileContainer";
 
 
 
-export const Content= () => {
+export const Content= (props: ProfileContainerPropsType) => {
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo profileState={props.state.profile}/>
             <MyPostsContainer/>
 
         </div>

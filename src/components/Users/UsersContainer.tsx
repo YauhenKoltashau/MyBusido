@@ -1,5 +1,4 @@
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
     followUser,
