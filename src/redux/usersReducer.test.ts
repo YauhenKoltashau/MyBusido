@@ -1,12 +1,11 @@
 
 import {
-    FollowAC,
-    initialStateType,
-    SetCurrentPageAC, SetIsFetchingAC,
-    SetTotalUsersAC,
-    SetUsersAC, SetUsersOnPageAC,
-    UnfollowAC,
-    UsersReducer
+    followUser,
+    setCurrentPage, setIsFetching,
+    setTotalUsers,
+    setUsers, setUsersOnPage,
+    unFollowUser,
+    UsersReducer, initialStateType
 } from "./usersReducer";
 
 
@@ -70,32 +69,32 @@ test('followed should be true', ()=>{
         currentPageNumber:1,
         usersOnPage:10,
         isFetching:false}
-    let followedUser = UsersReducer(state,FollowAC(state.users[1].id))
+    let followedUser = UsersReducer(state,followUser(state.users[1].id))
     expect(state).not.toBe(followedUser)
     expect(followedUser.users[1].followed).toBe(true)
 
-    let unfollowedUser = UsersReducer(state, UnfollowAC(state.users[0].id))
+    let unfollowedUser = UsersReducer(state, unFollowUser(state.users[0].id))
     expect(state).not.toBe(unfollowedUser)
     expect(unfollowedUser.users[0].followed).toBe(false)
 
-    let setUsers = UsersReducer (state, SetUsersAC(state2.users))
-    expect(setUsers).not.toBe(state)
-    expect(setUsers.users[0].id).toBe(state2.users[0].id)
-    expect(setUsers.users.length).toBe(1)
+    let setNewUsers = UsersReducer (state, setUsers(state2.users))
+    expect(setNewUsers).not.toBe(state)
+    expect(setNewUsers.users[0].id).toBe(state2.users[0].id)
+    expect(setNewUsers.users.length).toBe(1)
 
-    let getTotalUsers = UsersReducer (state, SetTotalUsersAC(1000))
+    let getTotalUsers = UsersReducer (state, setTotalUsers(1000))
     expect(state.totalCount).toBe(0)
     expect(getTotalUsers.totalCount).toBe(1000)
 
-    let setCurrentPage = UsersReducer(state, SetCurrentPageAC(3))
+    let setNewCurrentPage = UsersReducer(state, setCurrentPage(3))
     expect(state.currentPageNumber).toBe(1)
-    expect(setCurrentPage.currentPageNumber).toBe(3)
+    expect(setNewCurrentPage.currentPageNumber).toBe(3)
 
-    let setUsersOnPage = UsersReducer(state,SetUsersOnPageAC(5))
+    let setNewUsersOnPage = UsersReducer(state,setUsersOnPage(5))
     expect(state.usersOnPage).toBe(10)
-    expect(setUsersOnPage.usersOnPage).toBe(5)
+    expect(setNewUsersOnPage.usersOnPage).toBe(5)
 
-    let setIsFetching = UsersReducer(state, SetIsFetchingAC(true))
+    let setValueIsFetching = UsersReducer(state, setIsFetching(true))
     expect(state.isFetching).toBe(false)
-    expect(setIsFetching.isFetching).toBe(true)
+    expect(setValueIsFetching.isFetching).toBe(true)
 })

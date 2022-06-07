@@ -1,10 +1,10 @@
-export type UsersReducerTypesAC = ReturnType<typeof FollowAC>
-    | ReturnType<typeof UnfollowAC>
-    | ReturnType<typeof SetUsersAC>
-    | ReturnType<typeof SetTotalUsersAC>
-    | ReturnType<typeof SetCurrentPageAC>
-    | ReturnType<typeof SetUsersOnPageAC>
-    | ReturnType<typeof SetIsFetchingAC>
+export type UsersReducerTypesAC = ReturnType<typeof followUser>
+    | ReturnType<typeof unFollowUser>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setTotalUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setUsersOnPage>
+    | ReturnType<typeof setIsFetching>
 export type UserType = {
     name: string
     id: number
@@ -25,43 +25,43 @@ export type initialStateType = {
     isFetching: boolean
 }
 
-export const FollowAC = (id: number) => {
+export const followUser = (id: number) => {
     return {
         type: 'FOLLOW',
         id: id
     } as const
 }
-export const UnfollowAC = (id: number) => {
+export const unFollowUser = (id: number) => {
     return {
         type: 'UNFOLLOW',
         id: id
     } as const
 }
-export const SetUsersAC = (users: UsersType) => {
+export const setUsers = (users: UsersType) => {
     return {
         type: 'SET-USERS',
         usersState: users
     } as const
 }
-export const SetTotalUsersAC = (totalUsers: number) => {
+export const setTotalUsers = (totalUsers: number) => {
     return {
         type: 'SET-TOTAL-USERS',
         totalUsers: totalUsers
     } as const
 }
-export const SetCurrentPageAC = (pageNumber: number) => {
+export const setCurrentPage = (pageNumber: number) => {
     return {
         type: 'SET-PAGE-NUMBER',
         pageNumber: pageNumber
     } as const
 }
-export const SetUsersOnPageAC = (usersOn: number) => {
+export const setUsersOnPage = (usersOn: number) => {
     return {
         type: 'SET-USERS-ON-PAGE',
         usersOn: usersOn
     } as const
 }
-export const SetIsFetchingAC = (isFetching: boolean) => {
+export const setIsFetching = (isFetching: boolean) => {
     return {
         type: 'SET-IS-FETCHING',
         isFetching: isFetching
@@ -72,7 +72,7 @@ const initialState: initialStateType = {
     users: [],
     totalCount: 0,
     currentPageNumber: 1,
-    usersOnPage: 10,
+    usersOnPage: 30,
     isFetching: true
 }
 
