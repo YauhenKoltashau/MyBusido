@@ -4,7 +4,7 @@ import userImage from '../../assets/userImage.jpeg'
 import {v1} from "uuid";
 import {UsersType} from "../../redux/usersReducer";
 import {NavLink} from 'react-router-dom';
-import {followUser, unFollowUser} from "../../api/api";
+import {userAPI} from "../../api/api";
 
 type PageType = {
     id: string,
@@ -50,7 +50,7 @@ export const Users = (props: UsersFunctionPropsType) => {
                     <div>
                         {!u.followed
                             ? <button onClick={() => {
-                                followUser(u.id)
+                                userAPI.followUser(u.id)
                                     .then(response => {
                                     if (response.data.resultCode === 0) {
                                         props.followUser(u.id)
@@ -60,7 +60,7 @@ export const Users = (props: UsersFunctionPropsType) => {
 
                             }}>FOLLOW</button>
                             : <button onClick={() => {
-                                unFollowUser(u.id)
+                                userAPI.unFollowUser(u.id)
                                     .then(response => {
                                     if (response.data.resultCode === 0) {
                                         props.unFollowUser(u.id)

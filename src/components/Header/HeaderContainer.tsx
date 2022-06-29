@@ -4,11 +4,11 @@ import {Header} from "./Header";
 import {connect} from "react-redux";
 import {setAuthUserData,} from "../../redux/Auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import {authMe} from "../../api/api";
+import {userAPI} from "../../api/api";
 
 class HeaderContainer extends React.Component<HeaderPropsType>{
     componentDidMount() {
-        authMe()
+        userAPI.authMe()
             .then(response => {
                 if(response.data.resultCode === 0) {
                     let {id, login, email} = response.data.data

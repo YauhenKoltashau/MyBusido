@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import { ProfileUserType, setUserProfile} from "../../redux/contentReducer";
 import React from "react";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {getUserById} from "../../api/api";
+import {userAPI} from "../../api/api";
 
 type PathParamsType = {
     userId: string,
@@ -25,7 +25,7 @@ class ProfileContainer extends React.Component<ComponentWithRouterPropsType>{
         if (!userId) {
             userId='2'
         }
-        getUserById(userId).then(data =>
+        userAPI.getUserById(userId).then(data =>
 
             {
                 this.props.setUserProfile(data)
