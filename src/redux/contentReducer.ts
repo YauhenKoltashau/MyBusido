@@ -45,6 +45,7 @@ export const addNewMessageAC = (text: string) => {
     } as const
 }
 export const setUserProfile = (profile: ProfileUserType) => {
+    console.log(profile)
     return {
         type: 'SET-USER-PROFILE',
         profile: profile
