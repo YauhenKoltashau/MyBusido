@@ -5,7 +5,7 @@ import {
     setTotalUsers,
     setUsers, setUsersOnPage,
     unFollowUser,
-    UsersReducer, initialStateType
+    UsersReducer, initialStateType, setFollowingInProgress
 } from "./usersReducer";
 
 
@@ -28,7 +28,10 @@ test('followed should be true', ()=>{
         totalCount:0,
         currentPageNumber:1,
         usersOnPage:10,
-        isFetching:false}
+        isFetching:false,
+        isFollowingInProgress: []
+    }
+
 
     const state:initialStateType = {users:[
             {
@@ -68,7 +71,9 @@ test('followed should be true', ()=>{
         totalCount:0,
         currentPageNumber:1,
         usersOnPage:10,
-        isFetching:false}
+        isFetching:false,
+        isFollowingInProgress: []
+    }
     let followedUser = UsersReducer(state,followUser(state.users[1].id))
     expect(state).not.toBe(followedUser)
     expect(followedUser.users[1].followed).toBe(true)
@@ -97,4 +102,9 @@ test('followed should be true', ()=>{
     let setValueIsFetching = UsersReducer(state, setIsFetching(true))
     expect(state.isFetching).toBe(false)
     expect(setValueIsFetching.isFetching).toBe(true)
+
+    let setIsFollowingInProgress = UsersReducer(state, setFollowingInProgress(false, 1289))
+    expect(state.isFollowingInProgress).toBe(false)
+    expect(setIsFollowingInProgress.isFollowingInProgress).toBe(true)
+
 })

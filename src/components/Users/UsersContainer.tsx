@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
     followUser,
-    setCurrentPage, setIsFetching,
+    setCurrentPage, setFollowingInProgress, setIsFetching,
     setTotalUsers,
     setUsers, setUsersOnPage,
     unFollowUser,
@@ -20,6 +20,7 @@ type mapStateToPropsType = {
     currentPageNumber: number
     usersOnPage: number
     isFetching: boolean
+    isFollowingInProgress: number[]
 }
 type mapDispatchToPropsType = {
     followUser: (id: number) => void
@@ -29,6 +30,7 @@ type mapDispatchToPropsType = {
     setCurrentPage: (pageNumber: number) => void
     setUsersOnPage: (usersOn: number) => void
     setIsFetching: (isFetching: boolean) => void
+    setFollowingInProgress: (isFetching:boolean,id: number) => void
 }
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -36,7 +38,7 @@ export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.setIsFetching(true)
-        userAPI.getUsers(this.props.currentPageNumber,this.props.usersOnPage).then(response => {
+        userAPI.getUsers(this.props.currentPageNumber, this.props.usersOnPage).then(response => {
                 this.props.setIsFetching(false)
                 this.props.setUsers(response.items)
                 this.props.setTotalUsers(response.totalCount)
@@ -47,7 +49,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
     onClickPageChosen = (pageNumber: number) => {
         this.props.setIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        userAPI.getUsers(pageNumber,this.props.usersOnPage).then(response => {
+        userAPI.getUsers(pageNumber, this.props.usersOnPage).then(response => {
             this.props.setIsFetching(false)
             this.props.setUsers(response.items)
 
@@ -65,6 +67,8 @@ class UsersContainer extends React.Component<UsersPropsType> {
                        usersOnPage={this.props.usersOnPage}
                        currentPageNumber={this.props.currentPageNumber}
                        onClickPageChosen={this.onClickPageChosen}
+                       isFollowingInProgress={this.props.isFollowingInProgress}
+                       setFollowingInProgress={this.props.setFollowingInProgress}
                 />
             </>
 
@@ -79,7 +83,8 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         totalCount: state.usersPage.totalCount,
         currentPageNumber: state.usersPage.currentPageNumber,
         usersOnPage: state.usersPage.usersOnPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        isFollowingInProgress: state.usersPage.isFollowingInProgress
 
     }
 }
@@ -112,4 +117,12 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 
 
 export default connect(mapStateToProps, {
-    followUser, unFollowUser, setUsers, setTotalUsers, setCurrentPage, setUsersOnPage, setIsFetching})(UsersContainer)
+    followUser,
+    unFollowUser,
+    setUsers,
+    setTotalUsers,
+    setCurrentPage,
+    setUsersOnPage,
+    setIsFetching,
+    setFollowingInProgress,
+})(UsersContainer)

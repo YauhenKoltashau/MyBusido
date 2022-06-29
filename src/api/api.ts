@@ -19,8 +19,7 @@ export const userAPI = {
     },
 
     authMe() {
-        return  instance.get('/auth/me',
-            {withCredentials: true})
+        return  instance.get('/auth/me')
     },
 
     followUser(userId: number) {
