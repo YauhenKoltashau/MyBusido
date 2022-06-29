@@ -4,6 +4,7 @@ import userImage from '../assets/userImage.jpeg'
 import {v1} from "uuid";
 import {UsersType} from "../../redux/usersReducer";
 import {NavLink} from 'react-router-dom';
+import axios from "axios";
 
 type PageType = {
     id: string,
@@ -20,6 +21,7 @@ type UsersFunctionPropsType = {
 }
 
 export const Users = (props: UsersFunctionPropsType) => {
+    console.log(props.usersState)
     let totalPages = Math.ceil(props.totalCount / props.usersOnPage)
     let pages: Array<PageType> = []
     for (let i = 1; i <= totalPages; i++) {
@@ -46,12 +48,25 @@ export const Users = (props: UsersFunctionPropsType) => {
                             </NavLink>
                     </div>
                     <div>
-                        {u.followed
+                        {!u.followed
                             ? <button onClick={() => {
-                                props.unFollowUser(u.id)
+                                axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {}, {withCredentials: true, headers: {'API-KEY': '26ffa3e6-cad0-4cf9-8170-904cae9d9ac2'}}).then(response => {
+                                    if (response.data.resultCode === 0) {
+                                        props.followUser(u.id)
+                                    }
+
+                                })
+
                             }}>FOLLOW</button>
                             : <button onClick={() => {
-                                props.followUser(u.id)
+                                axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {withCredentials: true, headers: {'API-KEY': '26ffa3e6-cad0-4cf9-8170-904cae9d9ac2'}}).then(response => {
+                                    if (response.data.resultCode === 0) {
+                                        props.unFollowUser(u.id)
+
+                                    }
+                                })
+
+
                             }}>UNFOLLOW</button>}
                     </div>
                 </span>

@@ -3,6 +3,7 @@ import {contentReducer} from "./contentReducer";
 import {addMessageAC, createNewMessageUserAC, dialogsReducer} from "./dialogsReducer";
 import {sideBarAC, sideBarReducer} from "./sideBarReducer";
 import {UsersReducer} from "./usersReducer";
+import {authReducer} from "./Auth-reducer";
 
 
 export type ActionCreatorReturnTypes = ReturnType<typeof createNewMessageUserAC>
@@ -13,7 +14,8 @@ let rootReducer = combineReducers({
     contentPage: contentReducer,
     dialogPage: dialogsReducer,
     sideBarPage: sideBarReducer,
-    usersPage: UsersReducer
+    usersPage: UsersReducer,
+    auth: authReducer
 } as const)
 
 export type AppStateType = ReturnType<typeof rootReducer>
