@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {Dispatch} from "redux";
+import {userAPI} from "../api/api";
 
 export type ContentActionCreatorTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof addNewMessageAC>
@@ -16,13 +18,13 @@ export type ProfileUserType = {
         github: string,
         mainLink: null
     },
-    lookingForAJob: true,
+    lookingForAJob: boolean,
     lookingForAJobDescription: string,
     fullName: string,
     userId: number,
     photos: {
-        small: string,
-        large: string
+        small: string | null,
+        large: string | null
     }
 }
 export type PostType = {
@@ -45,7 +47,6 @@ export const addNewMessageAC = (text: string) => {
     } as const
 }
 export const setUserProfile = (profile: ProfileUserType) => {
-    console.log(profile)
     return {
         type: 'SET-USER-PROFILE',
         profile: profile
@@ -58,18 +59,50 @@ export const setIsFetching = (isFetching: boolean) => {
     } as const
 }
 
+export const getUserByIdThunk = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        userAPI.getUserById(userId).then(data => {
+                dispatch(setUserProfile(data))
+            }
+        )
+    }
+
+}
+
+
 const initialState: ContentPageType = {
     postsData: [
         {id: v1(), message: "It's my first post", likesCount: 12},
         {id: v1(), message: "How are you!", likesCount: 3}
     ],
     newPostText: "my post works",
-    profile:<ProfileUserType> {}
+    profile: {
+        aboutMe: '',
+        contacts: {
+            facebook: 'string',
+            website: null,
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: null,
+            github: '',
+            mainLink: null
+        },
+        lookingForAJob: true,
+        lookingForAJobDescription: '',
+        fullName: '',
+        userId: 24371,
+        photos: {
+            small: null,
+            large: null
+        }
+    }
 
 
 }
 
 export const contentReducer = (state: ContentPageType = initialState, action: ContentActionCreatorTypes): ContentPageType => {
+    console.log(state)
     switch (action.type) {
         case "ADD-POST":
             let newPostsData = {id: v1(), message: state.newPostText, likesCount: 0}

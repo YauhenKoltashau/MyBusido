@@ -1,9 +1,10 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {contentReducer} from "./contentReducer";
 import {addMessageAC, createNewMessageUserAC, dialogsReducer} from "./dialogsReducer";
 import {sideBarAC, sideBarReducer} from "./sideBarReducer";
 import {UsersReducer} from "./usersReducer";
 import {authReducer} from "./Auth-reducer";
+import thunkMiddleware from "redux-thunk"
 
 
 export type ActionCreatorReturnTypes = ReturnType<typeof createNewMessageUserAC>
@@ -19,6 +20,6 @@ let rootReducer = combineReducers({
 } as const)
 
 export type AppStateType = ReturnType<typeof rootReducer>
-let store = createStore(rootReducer)
+let store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
 export default store

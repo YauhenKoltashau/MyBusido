@@ -1,3 +1,6 @@
+import {userAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 export type UsersReducerTypesAC = ReturnType<typeof followUser>
     | ReturnType<typeof unFollowUser>
     | ReturnType<typeof setUsers>
@@ -85,7 +88,43 @@ const initialState: initialStateType = {
     isFetching: true,
     isFollowingInProgress: []
 }
+export const getUsers = (currentPageNumber:number,usersOnPage: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setIsFetching(true))
+        userAPI.getUsers(currentPageNumber, usersOnPage).then(response => {
+                dispatch(setIsFetching(false))
+                dispatch(setUsers(response.items))
+                dispatch(setTotalUsers(response.totalCount))
+            }
+        )
+    }
+}
+export const followUserThunk = (userId: number) => {
+    return (dispatch:Dispatch) => {
+        dispatch(setFollowingInProgress(true,userId))
+        userAPI.followUser(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(followUser(userId))
 
+                }
+                dispatch(setFollowingInProgress(false, userId))
+            })
+    }
+}
+export const unFollowUserThunk = (userId: number) => {
+    return (dispatch:Dispatch) => {
+        dispatch(setFollowingInProgress(true,userId))
+        userAPI.followUser(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unFollowUser(userId))
+
+                }
+                dispatch(setFollowingInProgress(false, userId))
+            })
+    }
+}
 
 export const UsersReducer = (state: initialStateType = initialState, action: UsersReducerTypesAC): initialStateType => {
     switch (action.type) {

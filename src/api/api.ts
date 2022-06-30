@@ -14,7 +14,7 @@ export const userAPI = {
         return  instance.get(`/users?page=${currentPageNumber}&count=${usersOnPage}`).then(response=>response.data)
     },
 
-    getUserById(userId: string) {
+    getUserById(userId: number) {
         return  instance.get('/profile/'+userId).then(response=>response.data)
     },
 
