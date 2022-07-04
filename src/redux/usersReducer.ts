@@ -115,7 +115,7 @@ export const followUserThunk = (userId: number) => {
 export const unFollowUserThunk = (userId: number) => {
     return (dispatch:Dispatch) => {
         dispatch(setFollowingInProgress(true,userId))
-        userAPI.followUser(userId)
+        userAPI.unFollowUser(userId)
             .then(response => {
                 if (response.data.resultCode === 0) {
                     dispatch(unFollowUser(userId))

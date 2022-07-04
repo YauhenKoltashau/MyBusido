@@ -7,7 +7,6 @@ import {ProfileContainerPropsType} from "./ProfileContainer";
 
 
 export const Content= (props: ProfileContainerPropsType) => {
-    console.log(props.profile)
     return (
         <div>
             <ProfileInfo profile={props.profile}/>
