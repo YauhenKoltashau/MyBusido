@@ -1,5 +1,12 @@
 import {v1} from "uuid";
-import {addNewMessageAC, addPostAC, contentReducer, ProfileUserType, setUserProfile} from "./contentReducer";
+import {
+    addNewMessageAC,
+    addPostAC,
+    contentReducer,
+    ProfileUserType,
+    setProfileStatus,
+    setUserProfile
+} from "./contentReducer";
 
 
 test('message should be added to state', ()=>{
@@ -10,7 +17,8 @@ test('message should be added to state', ()=>{
         ],
         newPostText: "my post works",
         isFetching: false,
-        profile:<ProfileUserType> {}
+        profile:<ProfileUserType> {},
+        currentStatus: 'write your current status'
     }
     let profileUser:ProfileUserType = {
         "aboutMe": "я круто чувак 1001%",
@@ -48,4 +56,7 @@ test('message should be added to state', ()=>{
     expect(addProfileToState.profile).toEqual(profileUser)
     expect(addProfileToState.profile.fullName).toBe("samurai dimych")
     expect(addProfileToState.profile.photos.small).toBeDefined()
+    let statusProfile = contentReducer(testState,setProfileStatus('new status'))
+    expect(statusProfile).not.toBe(testState)
+    expect(statusProfile.currentStatus).toBe('new status')
 })

@@ -9,7 +9,7 @@ import {ProfileContainerPropsType} from "./ProfileContainer";
 export const Content= (props: ProfileContainerPropsType) => {
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} status={props.statusText} setProfileStatus={props.setProfileStatus}/>
             <MyPostsContainer/>
 
         </div>

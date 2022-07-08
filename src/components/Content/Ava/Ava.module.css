@@ -1,4 +1,6 @@
 .item {
+    display: inline-block;
+    border: 1px solid black;
     color: blueviolet;
     padding: 10px;
 }

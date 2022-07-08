@@ -18,7 +18,8 @@ test('new message should be added', ()=>{
             {id: v1(), message: "How is your progress?"},
             {id: v1(), message: "Anyone be able to become a programmer"},
         ],
-        newMessageUser: ""
+        newMessageUser: "",
+
     }
     let testAddNewMessageToState = dialogsReducer(state,createNewMessageUserAC('new message from user'))
     expect(testAddNewMessageToState.newMessageUser).toBe('new message from user')
@@ -30,4 +31,5 @@ test('new message should be added', ()=>{
     expect(testAddMessage.messages[3].message).toBe('new message from user')
     expect(testAddMessage.newMessageUser).toBe('')
     expect(testAddMessage).not.toBe(testAddNewMessageToState)
+
 })

@@ -6,6 +6,8 @@ export type ContentActionCreatorTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof addNewMessageAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setIsFetching>
+    | ReturnType<typeof setProfileStatus>
+
 export type ProfileUserType = {
     aboutMe: string,
     contacts: {
@@ -37,6 +39,7 @@ export type ContentPageType = {
     postsData: PostsDataType
     newPostText: string
     profile: ProfileUserType
+    currentStatus: string
 }
 
 export const addPostAC = () => ({type: 'ADD-POST'} as const)
@@ -56,6 +59,12 @@ export const setIsFetching = (isFetching: boolean) => {
     return {
         type: 'SET-IS-FETCHING',
         isFetching: isFetching
+    } as const
+}
+export const setProfileStatus = (text: string) => {
+    return {
+        type: 'SET-PROFILE-STATUS',
+        text
     } as const
 }
 
@@ -96,7 +105,8 @@ const initialState: ContentPageType = {
             small: null,
             large: null
         }
-    }
+    },
+    currentStatus: 'write your current status'
 
 
 }
@@ -111,6 +121,8 @@ export const contentReducer = (state: ContentPageType = initialState, action: Co
             return {...state, newPostText: action.newText}
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
+        case "SET-PROFILE-STATUS":
+            return {...state,currentStatus: action.text}
 
         default:
 
