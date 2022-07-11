@@ -1,12 +1,12 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
-import {userAPI} from "../api/api";
+import {profileAPI, userAPI} from "../api/api";
 
 export type ContentActionCreatorTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof addNewMessageAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setIsFetching>
-    | ReturnType<typeof setProfileStatus>
+    | ReturnType<typeof setStatus>
 
 export type ProfileUserType = {
     aboutMe: string,
@@ -61,10 +61,10 @@ export const setIsFetching = (isFetching: boolean) => {
         isFetching: isFetching
     } as const
 }
-export const setProfileStatus = (text: string) => {
+export const setStatus = (status: string) => {
     return {
         type: 'SET-PROFILE-STATUS',
-        text
+        status
     } as const
 }
 
@@ -72,6 +72,32 @@ export const getUserByIdThunk = (userId: number) => {
     return (dispatch: Dispatch) => {
         userAPI.getUserById(userId).then(data => {
                 dispatch(setUserProfile(data))
+            }
+        )
+    }
+
+}
+export const getUserStatusThunk = (userId: number) => {
+    debugger
+    return (dispatch: Dispatch) => {
+        profileAPI.getStatus(userId).then(response=> {
+            console.log(response)
+            debugger
+                dispatch(setStatus(response.data))
+
+            }
+        )
+    }
+}
+export const updateStatusThunk = (status: string) => {
+    debugger
+    return (dispatch: Dispatch) => {
+        profileAPI.updateStatus(status).then(data => {
+            debugger
+            if(data.resultCode === 0){
+                dispatch(setStatus(status))
+            }
+
             }
         )
     }
@@ -122,7 +148,8 @@ export const contentReducer = (state: ContentPageType = initialState, action: Co
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
         case "SET-PROFILE-STATUS":
-            return {...state,currentStatus: action.text}
+            console.log(action.status)
+            return {...state,currentStatus: action.status}
 
         default:
 

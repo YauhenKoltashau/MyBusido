@@ -4,8 +4,8 @@ import {
     addPostAC,
     contentReducer,
     ProfileUserType,
-    setProfileStatus,
-    setUserProfile
+    setUserProfile,
+    setStatus
 } from "./contentReducer";
 
 
@@ -56,7 +56,7 @@ test('message should be added to state', ()=>{
     expect(addProfileToState.profile).toEqual(profileUser)
     expect(addProfileToState.profile.fullName).toBe("samurai dimych")
     expect(addProfileToState.profile.photos.small).toBeDefined()
-    let statusProfile = contentReducer(testState,setProfileStatus('new status'))
+    let statusProfile = contentReducer(testState,setStatus('new status'))
     expect(statusProfile).not.toBe(testState)
     expect(statusProfile.currentStatus).toBe('new status')
 })

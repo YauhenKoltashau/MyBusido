@@ -8,7 +8,7 @@ import {ProfileStatus} from "../Ava/ProfileStatus";
 type ProfileInfoPropsType = {
     profile:ProfileUserType
     status: string
-    setProfileStatus: (text: string)=>void
+    updateStatusThunk: (text: string)=>void
 }
 export function ProfileInfo(props:ProfileInfoPropsType) {
     if(!props.profile){
@@ -22,7 +22,7 @@ export function ProfileInfo(props:ProfileInfoPropsType) {
             <div>{props.profile.fullName}</div>
             <span>{props.profile.aboutMe}</span>
             <span>{props.profile.lookingForAJobDescription}</span>
-            <ProfileStatus status={props.status} callback={props.setProfileStatus}/>
+            <ProfileStatus status={props.status} callback={props.updateStatusThunk}/>
 
 
         </div>

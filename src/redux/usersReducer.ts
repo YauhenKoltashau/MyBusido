@@ -104,6 +104,7 @@ export const followUserThunk = (userId: number) => {
         dispatch(setFollowingInProgress(true,userId))
         userAPI.followUser(userId)
             .then(response => {
+                debugger
                 if (response.data.resultCode === 0) {
                     dispatch(followUser(userId))
 
