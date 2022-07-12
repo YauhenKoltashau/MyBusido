@@ -4,7 +4,8 @@ test("authMe function should be worked",()=>{
         id: null,
         login:null,
         email: null,
-        isAuth: false
+        isAuth: false,
+        isLogged: false
     }
     const newState = authReducer(oldState,{type: "SET-USER-DATA", data:{id: 3286, login: "newLogin", email: "coolEmail.com"}})
     expect(newState).not. toBe(oldState)

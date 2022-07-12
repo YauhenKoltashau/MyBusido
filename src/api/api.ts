@@ -15,7 +15,6 @@ export const userAPI = {
         return instance.get(`/users?page=${currentPageNumber}&count=${usersOnPage}`).then(response => response.data)
     },
     getUserById(userId: number) {
-        // console.warn('flvkflkrlfkrf')
         return profileAPI.getUserById(userId)
     },
     authMe() {
@@ -26,6 +25,12 @@ export const userAPI = {
     },
     unFollowUser(userId: number) {
         return instance.delete(`/follow/${userId}`)
+    },
+    logIn(email:string, password: string, rememberMe: boolean) {
+        return instance.post('/auth/login',{email, password, rememberMe })
+    },
+    logOut() {
+        return instance.delete('/auth/login')
     }
 
 }

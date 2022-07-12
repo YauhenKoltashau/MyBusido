@@ -138,7 +138,6 @@ const initialState: ContentPageType = {
 }
 
 export const contentReducer = (state: ContentPageType = initialState, action: ContentActionCreatorTypes): ContentPageType => {
-    console.log(state)
     switch (action.type) {
         case "ADD-POST":
             let newPostsData = {id: v1(), message: state.newPostText, likesCount: 0}
