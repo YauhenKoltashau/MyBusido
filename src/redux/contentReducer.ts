@@ -37,12 +37,11 @@ export type PostType = {
 export type PostsDataType = Array<PostType>
 export type ContentPageType = {
     postsData: PostsDataType
-    newPostText: string
     profile: ProfileUserType
     currentStatus: string
 }
 
-export const addPostAC = () => ({type: 'ADD-POST'} as const)
+export const addPostAC = (newPost:string) => ({type: 'ADD-POST', newPost} as const)
 export const addNewMessageAC = (text: string) => {
     return {
         type: 'ADD-NEW-MESSAGE',
@@ -78,11 +77,8 @@ export const getUserByIdThunk = (userId: number) => {
 
 }
 export const getUserStatusThunk = (userId: number) => {
-    debugger
     return (dispatch: Dispatch) => {
         profileAPI.getStatus(userId).then(response=> {
-            console.log(response)
-            debugger
                 dispatch(setStatus(response.data))
 
             }
@@ -90,10 +86,8 @@ export const getUserStatusThunk = (userId: number) => {
     }
 }
 export const updateStatusThunk = (status: string) => {
-    debugger
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status).then(data => {
-            debugger
             if(data.resultCode === 0){
                 dispatch(setStatus(status))
             }
@@ -110,7 +104,6 @@ const initialState: ContentPageType = {
         {id: v1(), message: "It's my first post", likesCount: 12},
         {id: v1(), message: "How are you!", likesCount: 3}
     ],
-    newPostText: "my post works",
     profile: {
         aboutMe: '',
         contacts: {
@@ -140,14 +133,13 @@ const initialState: ContentPageType = {
 export const contentReducer = (state: ContentPageType = initialState, action: ContentActionCreatorTypes): ContentPageType => {
     switch (action.type) {
         case "ADD-POST":
-            let newPostsData = {id: v1(), message: state.newPostText, likesCount: 0}
-            return {...state, postsData: [...state.postsData, newPostsData], newPostText: ''}
-        case "ADD-NEW-MESSAGE":
-            return {...state, newPostText: action.newText}
+            let newPostsData = {id: v1(), message: action.newPost, likesCount: 0}
+            return {...state, postsData: [...state.postsData, newPostsData]}
+        // case "ADD-NEW-MESSAGE":
+        //     return {...state, newPostText: action.newText}
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
         case "SET-PROFILE-STATUS":
-            console.log(action.status)
             return {...state,currentStatus: action.status}
 
         default:

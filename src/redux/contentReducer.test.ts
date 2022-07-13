@@ -1,6 +1,5 @@
 import {v1} from "uuid";
 import {
-    addNewMessageAC,
     addPostAC,
     contentReducer,
     ProfileUserType,
@@ -15,7 +14,6 @@ test('message should be added to state', ()=>{
             {id: v1(), message: "It's my first post", likesCount: 12},
             {id: v1(), message: "How are you!", likesCount: 3}
         ],
-        newPostText: "my post works",
         isFetching: false,
         profile:<ProfileUserType> {},
         currentStatus: 'write your current status'
@@ -41,16 +39,12 @@ test('message should be added to state', ()=>{
             "large": "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"
         }
     }
-    let addNewMessageState = contentReducer(testState, addNewMessageAC("new message") )
-    expect(addNewMessageState.newPostText).toBe("new message")
-    expect(addNewMessageState).not.toBe(testState)
-    expect(testState.newPostText).toBe("my post works")
 
-    let addPostState = contentReducer(addNewMessageState,addPostAC())
+    let addPostState = contentReducer(testState,addPostAC("newPost"))
     expect(addPostState.postsData.length).toBe(3)
-    expect(addPostState).not.toBe(addNewMessageState)
-    expect(addPostState.postsData[2].message).toBe("new message")
-    expect(addPostState.newPostText).toBe('')
+    expect(addPostState).not.toBe(testState)
+    expect(addPostState.postsData[2].message).toBe("newPost")
+    // expect(addPostState.newPostText).toBe('')
 
     let addProfileToState = contentReducer(testState, setUserProfile(profileUser))
     expect(addProfileToState.profile).toEqual(profileUser)

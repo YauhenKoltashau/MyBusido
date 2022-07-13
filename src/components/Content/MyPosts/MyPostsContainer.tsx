@@ -1,6 +1,5 @@
 import React from "react";
 import {
-    addNewMessageAC,
     addPostAC,
     PostsDataType
 } from '../../../redux/contentReducer'
@@ -11,30 +10,23 @@ import { Dispatch } from "redux";
 
 type mapStateToPropsType = {
     postsData: PostsDataType
-    newPostText: string
 }
 type mapDispatchToPropsType = {
-    addNewMessage: (text: string) => void
-    addPostOnClick: () => void
+    addPost: (newPost: string) => void
 }
 export type MyPostsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         postsData: state.contentPage.postsData,
-        newPostText: state.contentPage.newPostText
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
-        addNewMessage: (text: string) => {
-            dispatch(addNewMessageAC(text))
-        },
-        addPostOnClick: () => {
-            dispatch(addPostAC())
+        addPost: (newPost) => {
+            dispatch(addPostAC(newPost))
         }
     }
 }
-
 export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)

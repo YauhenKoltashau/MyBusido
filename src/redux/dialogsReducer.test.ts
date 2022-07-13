@@ -1,4 +1,4 @@
-import {addMessageAC, createNewMessageUserAC, dialogsReducer} from "./dialogsReducer";
+import {addMessageAC, dialogsReducer} from "./dialogsReducer";
 import {v1} from "uuid";
 
 test('new message should be added', ()=>{
@@ -17,19 +17,18 @@ test('new message should be added', ()=>{
             {id: v1(), message: "Hi, man!"},
             {id: v1(), message: "How is your progress?"},
             {id: v1(), message: "Anyone be able to become a programmer"},
-        ],
-        newMessageUser: "",
+        ]
 
     }
-    let testAddNewMessageToState = dialogsReducer(state,createNewMessageUserAC('new message from user'))
-    expect(testAddNewMessageToState.newMessageUser).toBe('new message from user')
-    expect(state).not.toBe(testAddNewMessageToState)
-    expect(testAddNewMessageToState.newMessageUser).not.toBe(state.newMessageUser)
-    expect(state.newMessageUser).toBe('')
-    let testAddMessage = dialogsReducer(testAddNewMessageToState, addMessageAC())
+    // let testAddNewMessageToState = dialogsReducer(state,createNewMessageUserAC('new message from user'))
+    // expect(testAddNewMessageToState.newMessageUser).toBe('new message from user')
+    // expect(state).not.toBe(testAddNewMessageToState)
+    // expect(testAddNewMessageToState.newMessageUser).not.toBe(state.newMessageUser)
+    // expect(state.newMessageUser).toBe('')
+    let testAddMessage = dialogsReducer(state, addMessageAC("new message"))
     expect(testAddMessage.messages.length).toBe(4)
-    expect(testAddMessage.messages[3].message).toBe('new message from user')
-    expect(testAddMessage.newMessageUser).toBe('')
-    expect(testAddMessage).not.toBe(testAddNewMessageToState)
+    expect(testAddMessage.messages[3].message).toBe('new message')
+    // expect(testAddMessage.newMessageUser).toBe('')
+    expect(testAddMessage).not.toBe(state)
 
 })

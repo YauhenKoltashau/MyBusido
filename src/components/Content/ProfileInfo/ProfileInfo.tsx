@@ -14,7 +14,6 @@ export function ProfileInfo(props:ProfileInfoPropsType) {
     if(!props.profile){
         <Preloader/>
     }
-    console.log(props.profile)
     return (
 
         <div className={classes.profileItem}>

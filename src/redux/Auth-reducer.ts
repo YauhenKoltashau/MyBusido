@@ -16,7 +16,6 @@ const initialState: AuthType = {
     isLogged: false
 }
 export const setAuthUserThunk = () => {
-    debugger
     return (dispatch: Dispatch) => {
         userAPI.authMe()
             .then(response => {

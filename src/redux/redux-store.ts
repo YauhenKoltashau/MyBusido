@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {contentReducer} from "./contentReducer";
-import {addMessageAC, createNewMessageUserAC, dialogsReducer} from "./dialogsReducer";
+import {dialogsReducer} from "./dialogsReducer";
 import {sideBarAC, sideBarReducer} from "./sideBarReducer";
 import {UsersReducer} from "./usersReducer";
 import {authReducer} from "./Auth-reducer";
@@ -8,9 +8,7 @@ import thunkMiddleware from "redux-thunk"
 import { reducer as formReducer } from 'redux-form'
 
 
-export type ActionCreatorReturnTypes = ReturnType<typeof createNewMessageUserAC>
-    | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof sideBarAC>
+export type ActionCreatorReturnTypes = ReturnType<typeof sideBarAC>
 
 let rootReducer = combineReducers({
     contentPage: contentReducer,

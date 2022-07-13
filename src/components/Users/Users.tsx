@@ -21,7 +21,6 @@ type UsersFunctionPropsType = {
 }
 
 export const Users = (props: UsersFunctionPropsType) => {
-    console.log(props.isFollowingInProgress)
     let totalPages = Math.ceil(props.totalCount / props.usersOnPage)
     let pages: Array<PageType> = []
     for (let i = 1; i <= totalPages; i++) {
@@ -35,7 +34,7 @@ export const Users = (props: UsersFunctionPropsType) => {
         <div>
             {pages.map((p) => {
                 return (
-                    <span key={p.id} onClick={(e) => props.onClickPageChosen(p.number)}
+                    <span key={p.id} onClick={() => props.onClickPageChosen(p.number)}
                           className={props.currentPageNumber === p.number ? styles.chosedPage : styles.unChosedPage}>{p.number}</span>
                 )
             })

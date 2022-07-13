@@ -1,12 +1,16 @@
 import React from 'react'
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {logInThunk} from "../../redux/Auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 
 
-type LoginFormProps = any
-const LoginForm = (props: LoginFormProps) => {
+type FormDataType = {
+    login: string
+    password: string
+    rememberMe: boolean
+}
+const LoginForm:React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return(
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -25,11 +29,9 @@ const LoginForm = (props: LoginFormProps) => {
     )
 }
 
-export const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
-
+export const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 const Login = (props: LoginPropsType) => {
-    console.log(props.isLogged)
-    const onSubmit = (formData: any) => {
+    const onSubmit = (formData: FormDataType) => {
         props.logInThunk(formData.login, formData.password, formData.rememberMe)
         console.log(formData)
     }
