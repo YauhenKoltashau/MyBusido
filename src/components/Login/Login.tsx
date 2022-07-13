@@ -3,6 +3,8 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {logInThunk} from "../../redux/Auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
+import {Input} from "../FormControls/FormControls";
+import {required} from "../../utils/validators/validators";
 
 
 type FormDataType = {
@@ -14,13 +16,13 @@ const LoginForm:React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return(
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={"Login"} name={"login"} component={"input"}/>
+                <Field placeholder={"Login"} name={"login"} component={Input} validate={[required]}/>
             </div>
             <div>
-                <Field placeholder={"Password"} name={"password"} component={"input"}/>
+                <Field placeholder={"Password"} name={"password"} component={Input} validate={[required]}/>
             </div>
             <div>
-                <Field component={"input"} name={"rememberMe"} type="checkbox"/> Remember me
+                <Field component={Input} name={"rememberMe"} type="checkbox"/> Remember me
             </div>
             <div>
                 <button>Login</button>
