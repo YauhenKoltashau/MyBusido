@@ -1,5 +1,5 @@
 import {userAPI} from "../api/api";
-import {AppThunk} from "./redux-store";
+import {AppThunkType} from "./redux-store";
 export type AuthType = {
     id: number | null
     login: string | null
@@ -12,7 +12,7 @@ const initialState: AuthType = {
     email: null,
     isAuth: false,
 }
-export const setAuthUserThunk = ():AppThunk=> {
+export const setAuthUserThunk = ():AppThunkType => {
     debugger
     return (dispatch) => {
         userAPI.authMe()
@@ -25,7 +25,7 @@ export const setAuthUserThunk = ():AppThunk=> {
             })
     }
 }
-export const logInThunk = (login:string, password: string, rememberMe:boolean ):AppThunk => {
+export const logInThunk = (login:string, password: string, rememberMe:boolean ):AppThunkType => {
     return (dispatch) => {
         userAPI.logIn(login, password, rememberMe)
             .then(response => {
@@ -36,7 +36,7 @@ export const logInThunk = (login:string, password: string, rememberMe:boolean ):
             })
     }
 }
-export const logoutThunk = (): AppThunk => {
+export const logoutThunk = ():AppThunkType => {
     debugger
     return (dispatch) => {
         userAPI.logOut()
@@ -55,8 +55,8 @@ export const authReducer = (state = initialState, action: AuthActionTypes): Auth
         case "SET-USER-DATA":
             return {
                 ...state,
-                ...action.payload,
-                isAuth: action.payload.isAuth
+                ...action.payload
+
             }
         case "SET-LOGOUT"  :
             return {

@@ -27,10 +27,10 @@ export const userAPI = {
         return instance.delete(`/follow/${userId}`)
     },
     logIn(email:string, password: string, rememberMe: boolean = false) {
-        return authApi.logIn(email, password, rememberMe)
+        return authAPI.logIn(email, password, rememberMe)
     },
     logOut() {
-        return authApi.logOut()
+        return authAPI.logOut()
     }
 
 }
@@ -46,7 +46,7 @@ export const profileAPI = {
     }
 
 }
-export const authApi = {
+export const authAPI = {
     logIn(email:string, password: string, rememberMe: boolean = false) {
         return instance.post('/auth/login',{email, password, rememberMe })
     },

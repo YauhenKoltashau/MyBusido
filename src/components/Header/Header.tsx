@@ -9,7 +9,7 @@ export const Header = (props:HeaderPropsType) => {
         <header className={classes.header}>
             <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxl0bsetRA8iWHNd5O4XXnAVCdei9U9cca1g&usqp=CAU'} alt={'image'}/>
             <div className={classes.loginBlock}>
-                {props.isAuth ? <>{props.login}<div onClick={props.logoutThunk}>EXIT</div></>
+                {props.isAuth ? <>{props.login}<button onClick={props.logoutThunk}>LOGOUT</button></>
                 :<NavLink to={'/login'}>Login</NavLink>}
             </div>
         </header>

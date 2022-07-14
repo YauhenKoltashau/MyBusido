@@ -2,9 +2,10 @@ import React from 'react'
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {logInThunk} from "../../redux/Auth-reducer";
-import {AppStateType} from "../../redux/redux-store";
 import {Input} from "../FormControls/FormControls";
 import {required} from "../../utils/validators/validators";
+import {AppStateType} from "../../redux/redux-store";
+import {Redirect} from "react-router-dom";
 
 
 type FormDataType = {
@@ -19,7 +20,7 @@ const LoginForm:React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <Field placeholder={"Login"} name={"login"} component={Input} validate={[required]}/>
             </div>
             <div>
-                <Field placeholder={"Password"} name={"password"} component={Input} validate={[required]}/>
+                <Field placeholder={"Password"} type={"password"} name={"password"} component={Input} validate={[required]}/>
             </div>
             <div>
                 <Field component={Input} name={"rememberMe"} type="checkbox"/> Remember me
@@ -37,16 +38,16 @@ const Login = (props: LoginPropsType) => {
         props.logInThunk(formData.login, formData.password, formData.rememberMe)
         console.log(formData)
     }
+    if (props.isAuth){
+        return <Redirect to={'/profile'}/>
+    }
 
     return (
-        <>{!props.isAuth
-            ?<div>
+        <>
+            <div>
                 <h1>LOGIN</h1>
                 <LoginReduxForm onSubmit={onSubmit}/>
             </div>
-            :<div>Logged</div>
-        }
-
         </>
 
 

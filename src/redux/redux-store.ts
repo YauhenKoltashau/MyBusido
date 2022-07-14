@@ -8,7 +8,7 @@ import thunkMiddleware from "redux-thunk"
 import {reducer as formReducer} from 'redux-form'
 import {ThunkAction} from 'redux-thunk'
 
-export type AppTypesAction = AuthActionTypes
+export type AppActionTypes = AuthActionTypes
     | ContentActionCreatorTypes
     | DialogsReducerActionTypes
     | SideBarActionTypes
@@ -27,5 +27,5 @@ export type AppStateType = ReturnType<typeof rootReducer>
 let store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 // @ts-ignore
 window.store = store
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppTypesAction>
+export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppActionTypes>
 export default store
