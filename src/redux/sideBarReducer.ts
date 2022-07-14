@@ -1,11 +1,10 @@
 import {v1} from "uuid";
-import {ActionCreatorReturnTypes} from "./redux-store";
 export type SideBarType = {
     id: string
     name: string
 }
 export type SideBarPageType = Array<SideBarType>
-
+export type SideBarActionTypes = ReturnType<typeof sideBarAC>
 export  const sideBarAC = () => {
     return{
         type: "SIDE-BAR"
@@ -19,7 +18,7 @@ let initialState = {
 
     ]
 }
-export const sideBarReducer = (state=initialState, action: ActionCreatorReturnTypes) => {
+export const sideBarReducer = (state=initialState, action: SideBarActionTypes) => {
 
     return state
 }

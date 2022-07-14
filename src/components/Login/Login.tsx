@@ -39,7 +39,7 @@ const Login = (props: LoginPropsType) => {
     }
 
     return (
-        <>{!props.isLogged
+        <>{!props.isAuth
             ?<div>
                 <h1>LOGIN</h1>
                 <LoginReduxForm onSubmit={onSubmit}/>
@@ -59,11 +59,11 @@ type mapDispatchToPropsType = {
     logInThunk: (login: string, password: string, rememberMe: boolean) => void
 }
 type mapStateToPropsType = {
-    isLogged: boolean
+    isAuth: boolean
 }
 
 const mapStateToProps = (state: AppStateType):mapStateToPropsType => ({
-    isLogged:state.auth.isLogged
+    isAuth:state.auth.isAuth
 })
 
 // export default  connect (mapStateToProps, {loginThunk})(Login)

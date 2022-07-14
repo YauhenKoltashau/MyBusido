@@ -26,11 +26,11 @@ export const userAPI = {
     unFollowUser(userId: number) {
         return instance.delete(`/follow/${userId}`)
     },
-    logIn(email:string, password: string, rememberMe: boolean) {
-        return instance.post('/auth/login',{email, password, rememberMe })
+    logIn(email:string, password: string, rememberMe: boolean = false) {
+        return authApi.logIn(email, password, rememberMe)
     },
     logOut() {
-        return instance.delete('/auth/login')
+        return authApi.logOut()
     }
 
 }
@@ -45,6 +45,14 @@ export const profileAPI = {
         return instance.put('profile/status',{status}).then((response=>response.data))
     }
 
+}
+export const authApi = {
+    logIn(email:string, password: string, rememberMe: boolean = false) {
+        return instance.post('/auth/login',{email, password, rememberMe })
+    },
+    logOut() {
+        return instance.delete('/auth/login')
+    }
 }
 
 

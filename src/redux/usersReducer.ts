@@ -1,5 +1,5 @@
 import {userAPI} from "../api/api";
-import {Dispatch} from "redux";
+import {AppThunk} from "./redux-store";
 
 export type UsersReducerTypesAC = ReturnType<typeof followUser>
     | ReturnType<typeof unFollowUser>
@@ -88,8 +88,8 @@ const initialState: initialStateType = {
     isFetching: true,
     isFollowingInProgress: []
 }
-export const getUsers = (currentPageNumber:number,usersOnPage: number) => {
-    return (dispatch: Dispatch) => {
+export const getUsers = (currentPageNumber:number,usersOnPage: number): AppThunk => {
+    return (dispatch) => {
         dispatch(setIsFetching(true))
         userAPI.getUsers(currentPageNumber, usersOnPage).then(response => {
                 dispatch(setIsFetching(false))
@@ -99,8 +99,8 @@ export const getUsers = (currentPageNumber:number,usersOnPage: number) => {
         )
     }
 }
-export const followUserThunk = (userId: number) => {
-    return (dispatch:Dispatch) => {
+export const followUserThunk = (userId: number):AppThunk => {
+    return (dispatch) => {
         dispatch(setFollowingInProgress(true,userId))
         userAPI.followUser(userId)
             .then(response => {
@@ -113,8 +113,8 @@ export const followUserThunk = (userId: number) => {
             })
     }
 }
-export const unFollowUserThunk = (userId: number) => {
-    return (dispatch:Dispatch) => {
+export const unFollowUserThunk = (userId: number): AppThunk => {
+    return (dispatch) => {
         dispatch(setFollowingInProgress(true,userId))
         userAPI.unFollowUser(userId)
             .then(response => {

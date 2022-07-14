@@ -1,6 +1,6 @@
 import {v1} from "uuid";
-import {Dispatch} from "redux";
 import {profileAPI, userAPI} from "../api/api";
+import {AppThunk} from "./redux-store";
 
 export type ContentActionCreatorTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof addNewMessageAC>
@@ -67,8 +67,8 @@ export const setStatus = (status: string) => {
     } as const
 }
 
-export const getUserByIdThunk = (userId: number) => {
-    return (dispatch: Dispatch) => {
+export const getUserByIdThunk = (userId: number):AppThunk => {
+    return (dispatch) => {
         userAPI.getUserById(userId).then(data => {
                 dispatch(setUserProfile(data))
             }
@@ -76,8 +76,8 @@ export const getUserByIdThunk = (userId: number) => {
     }
 
 }
-export const getUserStatusThunk = (userId: number) => {
-    return (dispatch: Dispatch) => {
+export const getUserStatusThunk = (userId: number): AppThunk => {
+    return (dispatch) => {
         profileAPI.getStatus(userId).then(response=> {
                 dispatch(setStatus(response.data))
 
@@ -85,8 +85,8 @@ export const getUserStatusThunk = (userId: number) => {
         )
     }
 }
-export const updateStatusThunk = (status: string) => {
-    return (dispatch: Dispatch) => {
+export const updateStatusThunk = (status: string):AppThunk => {
+    return (dispatch) => {
         profileAPI.updateStatus(status).then(data => {
             if(data.resultCode === 0){
                 dispatch(setStatus(status))
