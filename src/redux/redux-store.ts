@@ -1,18 +1,20 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {ContentActionCreatorTypes, contentReducer} from "./contentReducer";
 import {dialogsReducer, DialogsReducerActionTypes} from "./dialogsReducer";
-import { SideBarActionTypes, sideBarReducer} from "./sideBarReducer";
+import {SideBarActionTypes, sideBarReducer} from "./sideBarReducer";
 import {UsersReducer, UsersReducerTypesAC} from "./usersReducer";
 import {authReducer, AuthActionTypes} from "./Auth-reducer";
 import thunkMiddleware from "redux-thunk"
 import {reducer as formReducer} from 'redux-form'
 import {ThunkAction} from 'redux-thunk'
+import {InitializeActionTypes, initializeReducer} from "./AppReducer";
 
 export type AppActionTypes = AuthActionTypes
     | ContentActionCreatorTypes
     | DialogsReducerActionTypes
     | SideBarActionTypes
     | UsersReducerTypesAC
+    | InitializeActionTypes
 
 let rootReducer = combineReducers({
     contentPage: contentReducer,
@@ -20,6 +22,7 @@ let rootReducer = combineReducers({
     sideBarPage: sideBarReducer,
     usersPage: UsersReducer,
     auth: authReducer,
+    initialize: initializeReducer,
     form: formReducer
 } as const)
 

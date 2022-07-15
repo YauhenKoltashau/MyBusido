@@ -14,6 +14,7 @@ type ComponentWithRouterPropsType = RouteComponentProps<PathParamsType> & Profil
 type mapStateToPropsType = {
     profile: ProfileUserType
     status: string
+    id: any
 }
 type mapDispatchToPropsType = {
     getUserByIdThunk: (id: number) => void
@@ -26,10 +27,15 @@ export type ProfileContainerPropsType = mapStateToPropsType & mapDispatchToProps
 class ProfileContainer extends React.Component<ComponentWithRouterPropsType> {
     componentDidMount() {
         let newUserId = this.props.match.params.userId
-        let userId = +newUserId
+        let userId: number = +newUserId
         if (!userId) {
-            userId = 24371
+            console.log(userId)
+            userId = this.props.id
+            if (!userId){
+                this.props.history.push('/login')
+            }
         }
+
         this.props.getUserByIdThunk(userId)
         this.props.getUserStatusThunk(userId)
     }
@@ -52,7 +58,8 @@ class ProfileContainer extends React.Component<ComponentWithRouterPropsType> {
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         profile: state.contentPage.profile,
-        status: state.contentPage.currentStatus
+        status: state.contentPage.currentStatus,
+        id: state.auth.id
     }
 }
 // let WithUrlDataContainerComponent = withRouter(ProfileContainer);

@@ -1,5 +1,6 @@
 import {userAPI} from "../api/api";
 import {AppThunkType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 export type AuthType = {
     id: number | null
     login: string | null
@@ -13,14 +14,12 @@ const initialState: AuthType = {
     isAuth: false,
 }
 export const setAuthUserThunk = ():AppThunkType => {
-    debugger
     return (dispatch) => {
-        userAPI.authMe()
+       return userAPI.authMe()
             .then(response => {
                 if (response.data.resultCode === 0) {
                     let {id, login, email} = response.data.data
                     dispatch(setAuthUserData(id, login, email, true))
-                    // dispatch(setLogged(true))
                 }
             })
     }
@@ -30,19 +29,19 @@ export const logInThunk = (login:string, password: string, rememberMe:boolean ):
         userAPI.logIn(login, password, rememberMe)
             .then(response => {
                 if (response.data.resultCode === 0) {
-                    // dispatch(setLogged(true))
                     dispatch(setAuthUserThunk())
+                } else {
+                    let message = response.data.messages.length > 0? response.data.messages[0]:"some error!"
+                    dispatch(stopSubmit('login', {_error: message}))
                 }
             })
     }
 }
 export const logoutThunk = ():AppThunkType => {
-    debugger
     return (dispatch) => {
         userAPI.logOut()
             .then(response => {
                 if (response.data.resultCode === 0) {
-                    // dispatch(setLogged(false))
                     dispatch(setLogOut(null,null,null,false))
                     dispatch(setAuthUserThunk())
                 }
@@ -72,10 +71,6 @@ export const setAuthUserData = (id: number, login: string, email: string, isAuth
     type: "SET-USER-DATA",
     payload: { id, login, email, isAuth }
 }) as const
-// export const setLogged = (isLogged:boolean) => ({
-//     type: "LOGIN",
-//     isLogged
-// }) as const
 export const setLogOut = (id: null, login: null, email: null, isAuth: false) =>({
     type: "SET-LOGOUT",
     payload:{ id,login,email,isAuth }

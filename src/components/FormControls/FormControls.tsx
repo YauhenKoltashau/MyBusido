@@ -17,13 +17,13 @@ const FormControl = ({...props}) => {
 }
 export const Texarea = ({...props}) => {
     return (
-       <FormControl{...props}><textarea {...props.input} {...props.meta} {...props}/></FormControl>
+       <FormControl{...props}><textarea {...props.input} {...props}/></FormControl>
     )
 }
 export const Input = ({...props}) => {
     return (
             <FormControl {...props}>
-                <input {...props.input} {...props.meta} {...props}/>
+                <input {...props.input} {...props}/>
             </FormControl>
 
     )
