@@ -1,6 +1,5 @@
-import {AppStateType} from "./redux-store";
+import { AppThunkType } from "./redux-store";
 import {setAuthUserThunk} from "./Auth-reducer";
-import {ThunkAction} from "redux-thunk";
 
 type initializedStateType = {
     isInitialized: boolean
@@ -10,7 +9,7 @@ const initializedState = {
     isInitialized: false,
 }
 
-export const initializeAppThunk = ():ThunkAction<void, AppStateType, unknown, InitializeActionTypes> => (dispatch) => {
+export const initializeAppThunk = ():AppThunkType => (dispatch) => {
     let promise = dispatch(setAuthUserThunk())
     Promise.all([promise]).then(() => {
         dispatch(initializeAppCreator())})
