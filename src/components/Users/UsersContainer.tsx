@@ -14,7 +14,9 @@ import {withAuthRedirect} from "../withAuthRedirect";
 import {compose} from "redux";
 import {
     currentPageNumberSelector,
-    getUsersSelector, isFetchingSelector, isFollowingInProgressSelector,
+    getUsersReselector,
+    isFetchingSelector,
+    isFollowingInProgressSelector,
     totalCountSelector,
     usersOnPageSelector
 } from "../../redux/users-selectors";
@@ -81,7 +83,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
 // }
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        usersState: getUsersSelector(state),
+        usersState: getUsersReselector(state),
         totalCount: totalCountSelector(state),
         currentPageNumber: currentPageNumberSelector(state),
         usersOnPage: usersOnPageSelector(state),

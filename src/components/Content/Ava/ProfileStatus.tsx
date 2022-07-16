@@ -1,7 +1,6 @@
 import classes from "./Ava.module.css";
 import React from "react";
-import {EditableItem} from "../../EditableSpan/EditableItem";
-import {StatusClassComponent} from "../ProfileInfo/StatusClassComponent";
+import {StatusFunctionComponent} from "../ProfileInfo/StatusFunctionComponent";
 
 export const ProfileStatus = (props:{status: string, callback:(status: string)=>void}) => {
     return (<div>
@@ -10,8 +9,11 @@ export const ProfileStatus = (props:{status: string, callback:(status: string)=>
             {/*    <EditableItem title={props.status} callback={props.callback}/>*/}
             {/*</div>*/}
             {/*class component*/}
+            {/*<div className={classes.item}>*/}
+            {/*    <StatusClassComponent title={props.status} callback={props.callback}/>*/}
+            {/*</div>*/}
             <div className={classes.item}>
-                <StatusClassComponent title={props.status} callback={props.callback}/>
+                <StatusFunctionComponent title={props.status} callback={props.callback}/>
             </div>
 
 
