@@ -4,9 +4,9 @@ import React from "react";
 import {MyPostsPropsType} from "./MyPostsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, minLengthCreator, required} from "../../../utils/validators/validators";
-import {Texarea} from "../../FormControls/FormControls";
+import {Texarea} from "../../common/FormControls/FormControls";
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = React.memo((props: MyPostsPropsType) => {
     const addPost = (formData: FormDataType) => {
         props.addPost(formData.newPost)
     }
@@ -27,7 +27,8 @@ export const MyPosts = (props: MyPostsPropsType) => {
         </div>
 
     )
-}
+});
+
 type FormDataType = {
     newPost: string
 }

@@ -1,0 +1,13 @@
+.chosedPage {
+    background: whitesmoke;
+    border-radius: 2px;
+    padding: 3px;
+    border: 1px black solid;
+    font-weight: bolder;
+}
+
+.unChosedPage {
+    padding: 1px;
+    border: 1px black solid;
+    font-weight: lighter;
+}

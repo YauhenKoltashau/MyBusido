@@ -9,7 +9,6 @@ export const getUsersSuperSelector = (state:AppStateType) => {
     return getUsersSelector(state).filter(u=>true)
 }
 export const getUsersReselector = createSelector(getUsersSelector,(users)=>{
-    debugger
     return users.filter(u=>true)
 })
 export const totalCountSelector = (state:AppStateType) => {

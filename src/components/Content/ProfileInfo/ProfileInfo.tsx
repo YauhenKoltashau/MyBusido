@@ -1,7 +1,7 @@
 import React from "react";
-import classes from'./ProfileInfo.module.css';
+import classes from './ProfileInfo.module.css';
 import {ProfileUserType} from "../../../redux/contentReducer";
-import {Preloader} from "../../Preloader/preloader";
+import {Preloader} from "../../common/Preloader/preloader";
 import userImage from '../../../assets/userImage.jpeg'
 import {ProfileStatus} from "../Ava/ProfileStatus";
 
@@ -10,18 +10,20 @@ type ProfileInfoPropsType = {
     status: string
     updateStatusThunk: (text: string)=>void
 }
-export function ProfileInfo(props:ProfileInfoPropsType) {
-    if(!props.profile){
+
+export function ProfileInfo({profile,status, updateStatusThunk}: ProfileInfoPropsType) {
+    if (!profile) {
         <Preloader/>
     }
     return (
 
         <div className={classes.profileItem}>
-            <img src={props.profile.photos.small?props.profile.photos.small:userImage} alt={'user image'}/>
-            <div>{props.profile.fullName}</div>
-            <span>{props.profile.aboutMe}</span>
-            <span>{props.profile.lookingForAJobDescription}</span>
-            <ProfileStatus status={props.status} callback={props.updateStatusThunk}/>
+            <img src={profile.photos.small ? profile.photos.small : userImage}
+                 alt={'user image'}/>
+            <div>{profile.fullName}</div>
+            <span>{profile.aboutMe}</span>
+            <span>{profile.lookingForAJobDescription}</span>
+            <ProfileStatus status={status} callback={updateStatusThunk}/>
 
 
         </div>

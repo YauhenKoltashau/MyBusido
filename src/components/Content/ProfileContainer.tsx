@@ -29,7 +29,6 @@ class ProfileContainer extends React.Component<ComponentWithRouterPropsType> {
         let newUserId = this.props.match.params.userId
         let userId: number = +newUserId
         if (!userId) {
-            console.log(userId)
             userId = this.props.id
             if (!userId){
                 this.props.history.push('/login')

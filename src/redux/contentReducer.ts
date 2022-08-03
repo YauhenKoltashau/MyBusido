@@ -1,12 +1,12 @@
 import {v1} from "uuid";
 import {profileAPI, userAPI} from "../api/api";
-import {AppThunkType} from "./redux-store";
+import {AppActionsType, AppThunkType} from "./redux-store";
 
 export type ContentActionCreatorTypes = ReturnType<typeof addPostAC>
-    | ReturnType<typeof addNewMessageAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setIsFetching>
     | ReturnType<typeof setStatus>
+    | ReturnType<typeof deletePostAC>
 
 export type ProfileUserType = {
     aboutMe: string,
@@ -41,31 +41,17 @@ export type ContentPageType = {
     currentStatus: string
 }
 
-export const addPostAC = (newPost:string) => ({type: 'ADD-POST', newPost} as const)
-export const addNewMessageAC = (text: string) => {
-    return {
-        type: 'ADD-NEW-MESSAGE',
-        newText: text
-    } as const
-}
-export const setUserProfile = (profile: ProfileUserType) => {
-    return {
-        type: 'SET-USER-PROFILE',
-        profile: profile
-    } as const
-}
-export const setIsFetching = (isFetching: boolean) => {
-    return {
-        type: 'SET-IS-FETCHING',
-        isFetching: isFetching
-    } as const
-}
-export const setStatus = (status: string) => {
-    return {
-        type: 'SET-PROFILE-STATUS',
-        status
-    } as const
-}
+const ADD_POST = 'content/ADD-POST'
+const DELETE_POST = 'content/DELETE-POST'
+const SET_USER_PROFILE = 'content/SET-USER-PROFILE'
+const SET_IS_FETCHING = 'content/SET-IS-FETCHING'
+const SET_PROFILE_STATUS = 'content/SET-PROFILE-STATUS'
+
+export const addPostAC = (newPost:string) => ({type: ADD_POST, newPost} as const)
+export const deletePostAC = (id: string) => ({type: DELETE_POST,id} as const)
+export const setUserProfile = (profile: ProfileUserType) =>({type: SET_USER_PROFILE, profile: profile} as const)
+export const setIsFetching = (isFetching: boolean) => ({type: SET_IS_FETCHING, isFetching: isFetching } as const)
+export const setStatus = (status: string) => ({type: SET_PROFILE_STATUS, status} as const)
 
 export const getUserByIdThunk = (userId: number):AppThunkType => {
     return (dispatch) => {
@@ -99,7 +85,6 @@ export const updateStatusThunk = (status: string):AppThunkType => {
 
 }
 
-
 const initialState: ContentPageType = {
     postsData: [
         {id: v1(), message: "It's my first post", likesCount: 12},
@@ -127,22 +112,19 @@ const initialState: ContentPageType = {
         }
     },
     currentStatus: 'write your current status'
-
-
 }
 
-export const contentReducer = (state: ContentPageType = initialState, action: ContentActionCreatorTypes): ContentPageType => {
+export const contentReducer = (state: ContentPageType = initialState, action: AppActionsType): ContentPageType => {
     switch (action.type) {
-        case "ADD-POST":
+        case ADD_POST:
             let newPostsData = {id: v1(), message: action.newPost, likesCount: 0}
             return {...state, postsData: [...state.postsData, newPostsData]}
-        // case "ADD-NEW-MESSAGE":
-        //     return {...state, newPostText: action.newText}
-        case "SET-USER-PROFILE":
+        case SET_USER_PROFILE:
             return {...state, profile: action.profile}
-        case "SET-PROFILE-STATUS":
+        case SET_PROFILE_STATUS:
             return {...state,currentStatus: action.status}
-
+        case DELETE_POST:
+            return {...state,postsData: state.postsData.filter(p=>p.id !== action.id)}
         default:
 
             return state

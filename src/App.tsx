@@ -7,7 +7,7 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Content/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import {Preloader} from "./components/Preloader/preloader";
+import {Preloader} from "./components/common/Preloader/preloader";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeAppThunk} from "./redux/AppReducer";

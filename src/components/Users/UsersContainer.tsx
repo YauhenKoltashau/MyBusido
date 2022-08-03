@@ -9,7 +9,7 @@ import {
 } from "../../redux/usersReducer";
 import React from "react";
 import {Users} from "./Users";
-import {Preloader} from "../Preloader/preloader";
+import {Preloader} from "../common/Preloader/preloader";
 import {withAuthRedirect} from "../withAuthRedirect";
 import {compose} from "redux";
 import {
@@ -41,12 +41,15 @@ type mapDispatchToPropsType = {
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 class UsersContainer extends React.Component<UsersPropsType> {
+
     componentDidMount() {
-       this.props.getUsers(this.props.currentPageNumber, this.props.usersOnPage)
+        let {currentPageNumber, usersOnPage} = this.props
+       this.props.getUsers(currentPageNumber, usersOnPage)
     }
 
     onClickPageChosen = (pageNumber: number) => {
-        this.props.getUsers(pageNumber,this.props.usersOnPage)
+        let {usersOnPage} = this.props
+        this.props.getUsers(pageNumber,usersOnPage)
         this.props.setCurrentPage(pageNumber)
     }
 
@@ -92,41 +95,6 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 
     }
 }
-// let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-//     return {
-//         followUser: (id: number) => {
-//             dispatch(FollowAC(id))
-//
-//         },
-//         unFollowUser: (id: number) => {
-//             dispatch(UnfollowAC(id))
-//         },
-//         setUsers: (users: UsersType) => {
-//             dispatch(SetUsersAC(users))
-//         },
-//         setTotalUsers: (totalUsers: number) => {
-//             dispatch(SetTotalUsersAC(totalUsers))
-//         },
-//         setCurrentPage: (pageNumber: number) => {
-//             dispatch(SetCurrentPageAC(pageNumber))
-//         },
-//         setUsersOnPage: (usersOn: number) => {
-//             dispatch((SetUsersOnPageAC(usersOn)))
-//         },
-//         setIsFetching: (isFetching: boolean) => {
-//             dispatch(SetIsFetchingAC(isFetching))
-//         }
-//     }
-// }
-
-// let AuthRedirectComponent = withAuthRedirect(UsersContainer)
-// export default connect(mapStateToProps, {
-//     setCurrentPage,
-//     setUsersOnPage,
-//     getUsers,
-//     followUserThunk,
-//     unFollowUserThunk
-// })(AuthRedirectComponent)
 export default compose<React.ComponentType>(connect(mapStateToProps, {
     setCurrentPage,
     setUsersOnPage,

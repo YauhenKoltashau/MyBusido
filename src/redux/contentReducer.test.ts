@@ -4,20 +4,30 @@ import {
     contentReducer,
     ProfileUserType,
     setUserProfile,
-    setStatus
+    setStatus, deletePostAC, ContentPageType
 } from "./contentReducer";
 
+let postId1: string
+let postId2: string
+let testState:ContentPageType
+beforeEach(()=>{
+    postId1 = v1()
+    postId2 = v1()
 
-test('message should be added to state', ()=>{
-    let testState = {
+    testState = {
         postsData: [
-            {id: v1(), message: "It's my first post", likesCount: 12},
-            {id: v1(), message: "How are you!", likesCount: 3}
+            {id: postId1, message: "It's my first post", likesCount: 12},
+            {id: postId2, message: "How are you!", likesCount: 3}
         ],
-        isFetching: false,
         profile:<ProfileUserType> {},
         currentStatus: 'write your current status'
     }
+})
+
+
+
+test('message should be added to state', ()=>{
+
     let profileUser:ProfileUserType = {
         "aboutMe": "я круто чувак 1001%",
         "contacts": {
@@ -53,4 +63,11 @@ test('message should be added to state', ()=>{
     let statusProfile = contentReducer(testState,setStatus('new status'))
     expect(statusProfile).not.toBe(testState)
     expect(statusProfile.currentStatus).toBe('new status')
+})
+
+test('the post should be deleted', ()=>{
+    const action = deletePostAC(postId2)
+    let endState = contentReducer(testState, action)
+
+    expect(endState.postsData.length).toBe(1)
 })
