@@ -1,6 +1,7 @@
 import classes from "./Ava.module.css";
 import React from "react";
 import {StatusFunctionComponent} from "../ProfileInfo/StatusFunctionComponent";
+import {StatusClassComponent} from "../ProfileInfo/StatusClassComponent";
 
 export const ProfileStatus = (props:{status: string, callback:(status: string)=>void}) => {
     return (<div>

@@ -13,6 +13,7 @@ type UserFunctionPropsType = {
 
 export const User: React.FC<UserFunctionPropsType> = (
     {user, isFollowingInProgress, followUserThunk, unFollowUserThunk}
+
 ) => {
 
     return (
