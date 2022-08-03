@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, legacy_createStore as createStore} from "redux";
 import {ContentActionCreatorTypes, contentReducer} from "./contentReducer";
 import {dialogsReducer, DialogsReducerActionTypes} from "./dialogsReducer";
 import {SideBarActionTypes, sideBarReducer} from "./sideBarReducer";
@@ -32,9 +32,12 @@ export type AppActionsType =
     | SideBarActionTypes
     | UsersReducerTypesAC
 export type AppStateType = ReturnType<typeof store.getState>
-let store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 // @ts-ignore
-window.store = store
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
+// let store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+// @ts-ignore
+window._store_ = store
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppActionTypes>
 export type AppDispatch = ThunkDispatch<AppStateType, unknown, AppActionsType>
 export default store
