@@ -1,25 +1,19 @@
-import React, {Suspense} from 'react';
+import React from 'react';
 import './App.css';
 import {BrowserRouter, Route, withRouter} from "react-router-dom";
 import {NavBarContainer} from "./components/Navbar/NavBarContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-
 import {Preloader} from "./components/common/Preloader/preloader";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeAppThunk} from "./redux/AppReducer";
 import store, {AppStateType} from "./redux/redux-store";
-
-// import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-// import ProfileContainer from "./components/Content/ProfileContainer";
-//import Login from "./components/Login/Login";
+import {withlazyLoading} from "./hoc/withlazyLoading";
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Content/ProfileContainer'));
 const Login = React.lazy(() => import('./components/Login/Login'));
-
-
 
 
 class App extends React.Component<AppPropsType> {
@@ -39,29 +33,10 @@ class App extends React.Component<AppPropsType> {
 
                 <div className={"app-wrapper-content"}>
 
-                    <Route path={'/dialogs'} render={() => {
-                        return (
-                            <Suspense fallback={<div>Loading...</div>}>
-                                <DialogsContainer/>
-                            </Suspense>
-                        )
-                    }}/>
-                    <Route path={'/profile/:userId?'} render={() => {
-                        return (
-                            <Suspense fallback={<div>Loading...</div>}>
-                                <ProfileContainer/>
-                            </Suspense>
-                        )
-                    }}/>
+                    <Route path={'/dialogs'} render={withlazyLoading(DialogsContainer)}/>
+                    <Route path={'/profile/:userId?'} render={withlazyLoading(ProfileContainer)}/>
                     <Route path={'/users'} render={() => <UsersContainer/>}/>
-                    <Route path={'/login'} render={() =>{
-                        return(
-                            <Suspense fallback={<div>Loading...</div>}>
-                                <Login/>
-                            </Suspense>
-                        )
-                    }
-                    }/>
+                    <Route path={'/login'} render={withlazyLoading(Login)}/>
                 </div>
             </div>
 

@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {getUserByIdThunk, ProfileUserType, getUserStatusThunk, updateStatusThunk} from "../../redux/contentReducer";
 import React from "react";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../withAuthRedirect";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 type PathParamsType = {
