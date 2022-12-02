@@ -1,4 +1,4 @@
-import React, {ComponentType, Suspense} from 'react'
+import React, {ComponentType, ReactNode, Suspense} from 'react'
 
 export function withlazyLoading<T>(Component: ComponentType<T>) {
     return (props: any) => {
