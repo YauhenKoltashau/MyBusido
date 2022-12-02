@@ -62,11 +62,12 @@ const AppContainer = compose<React.ComponentType>(withRouter, connect(mapStateTo
 
 const SocialNetworkApp = () => {
     return (
-        <BrowserRouter>
-            <Provider store={store}>
-                <AppContainer/>
-            </Provider>
-        </BrowserRouter>
+        <div>MY APP</div>
+        // <BrowserRouter>
+        //     <Provider store={store}>
+        //         <AppContainer/>
+        //     </Provider>
+        // </BrowserRouter>
     )
 }
 export default SocialNetworkApp
