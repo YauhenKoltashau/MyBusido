@@ -36,7 +36,7 @@ class App extends React.Component<AppPropsType> {
                     <Route path={'/dialogs'} render={withlazyLoading(DialogsContainer)}/>
                     <Route path={'/profile/:userId?'} render={withlazyLoading(ProfileContainer)}/>
                     <Route path={'/users'} render={() => <UsersContainer/>}/>
-                    <Route path={'/login'} render={withlazyLoading(Login)}/>
+                    <Route path={'*'} render={withlazyLoading(Login)}/>
                 </div>
             </div>
 
@@ -63,7 +63,7 @@ const AppContainer = compose<React.ComponentType>(withRouter, connect(mapStateTo
 const SocialNetworkApp = () => {
     return (
         // <div>MY APP</div>
-        <HashRouter>
+        <HashRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                 <AppContainer/>
             </Provider>
