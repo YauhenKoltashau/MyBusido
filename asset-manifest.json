@@ -1,28 +1,28 @@
 {
   "files": {
     "main.css": "/MyBusido/static/css/main.7f14a90d.css",
-    "main.js": "/MyBusido/static/js/main.9ea8f081.js",
-    "static/css/377.29c5dc8c.chunk.css": "/MyBusido/static/css/377.29c5dc8c.chunk.css",
-    "static/js/377.057def25.chunk.js": "/MyBusido/static/js/377.057def25.chunk.js",
-    "static/css/781.03a6fbe2.chunk.css": "/MyBusido/static/css/781.03a6fbe2.chunk.css",
-    "static/js/781.d4eaf6ec.chunk.js": "/MyBusido/static/js/781.d4eaf6ec.chunk.js",
+    "main.js": "/MyBusido/static/js/main.48757e54.js",
+    "static/css/320.05e2169d.chunk.css": "/MyBusido/static/css/320.05e2169d.chunk.css",
+    "static/js/320.eb5ed66c.chunk.js": "/MyBusido/static/js/320.eb5ed66c.chunk.js",
+    "static/css/75.436c1982.chunk.css": "/MyBusido/static/css/75.436c1982.chunk.css",
+    "static/js/75.d4e8960f.chunk.js": "/MyBusido/static/js/75.d4e8960f.chunk.js",
     "static/css/944.d482eb8c.chunk.css": "/MyBusido/static/css/944.d482eb8c.chunk.css",
     "static/js/944.c3c840a2.chunk.js": "/MyBusido/static/js/944.c3c840a2.chunk.js",
-    "static/js/434.22f1a9ad.chunk.js": "/MyBusido/static/js/434.22f1a9ad.chunk.js",
+    "static/js/434.e199f8cc.chunk.js": "/MyBusido/static/js/434.e199f8cc.chunk.js",
     "static/media/Spin2.svg": "/MyBusido/static/media/Spin2.8ffc78154ab38cf94b50565cef41b0d8.svg",
     "index.html": "/MyBusido/index.html",
     "main.7f14a90d.css.map": "/MyBusido/static/css/main.7f14a90d.css.map",
-    "main.9ea8f081.js.map": "/MyBusido/static/js/main.9ea8f081.js.map",
-    "377.29c5dc8c.chunk.css.map": "/MyBusido/static/css/377.29c5dc8c.chunk.css.map",
-    "377.057def25.chunk.js.map": "/MyBusido/static/js/377.057def25.chunk.js.map",
-    "781.03a6fbe2.chunk.css.map": "/MyBusido/static/css/781.03a6fbe2.chunk.css.map",
-    "781.d4eaf6ec.chunk.js.map": "/MyBusido/static/js/781.d4eaf6ec.chunk.js.map",
+    "main.48757e54.js.map": "/MyBusido/static/js/main.48757e54.js.map",
+    "320.05e2169d.chunk.css.map": "/MyBusido/static/css/320.05e2169d.chunk.css.map",
+    "320.eb5ed66c.chunk.js.map": "/MyBusido/static/js/320.eb5ed66c.chunk.js.map",
+    "75.436c1982.chunk.css.map": "/MyBusido/static/css/75.436c1982.chunk.css.map",
+    "75.d4e8960f.chunk.js.map": "/MyBusido/static/js/75.d4e8960f.chunk.js.map",
     "944.d482eb8c.chunk.css.map": "/MyBusido/static/css/944.d482eb8c.chunk.css.map",
     "944.c3c840a2.chunk.js.map": "/MyBusido/static/js/944.c3c840a2.chunk.js.map",
-    "434.22f1a9ad.chunk.js.map": "/MyBusido/static/js/434.22f1a9ad.chunk.js.map"
+    "434.e199f8cc.chunk.js.map": "/MyBusido/static/js/434.e199f8cc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7f14a90d.css",
-    "static/js/main.9ea8f081.js"
+    "static/js/main.48757e54.js"
   ]
 }
