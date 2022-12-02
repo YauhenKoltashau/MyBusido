@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {HashRouter, Route, withRouter} from "react-router-dom";
 import {NavBarContainer} from "./components/Navbar/NavBarContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -62,12 +62,12 @@ const AppContainer = compose<React.ComponentType>(withRouter, connect(mapStateTo
 
 const SocialNetworkApp = () => {
     return (
-        <div>MY APP</div>
-        // <BrowserRouter>
-        //     <Provider store={store}>
-        //         <AppContainer/>
-        //     </Provider>
-        // </BrowserRouter>
+        // <div>MY APP</div>
+        <HashRouter>
+            <Provider store={store}>
+                <AppContainer/>
+            </Provider>
+        </HashRouter>
     )
 }
 export default SocialNetworkApp
