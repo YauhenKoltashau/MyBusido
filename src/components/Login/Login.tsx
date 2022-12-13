@@ -2,7 +2,7 @@ import React from 'react'
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {logInThunk} from "../../redux/Auth-reducer";
-import {Input} from "../common/FormControls/FormControls";
+import {createField, Input} from "../common/FormControls/FormControls";
 import {required} from "../../utils/validators/validators";
 import {AppStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
@@ -17,15 +17,9 @@ type FormDataType = {
 const LoginForm:React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return(
         <form onSubmit={handleSubmit}>
-            <div>
-                <Field placeholder={"Login"} name={"login"} component={Input} validate={[required]}/>
-            </div>
-            <div>
-                <Field placeholder={"Password"} type={"password"} name={"password"} component={Input} validate={[required]}/>
-            </div>
-            <div>
-                <Field component={Input} name={"rememberMe"} type="checkbox"/> Remember me
-            </div>
+            {createField("Login", "login", [required], Input)}
+            {createField("Password", "password", [required], Input,{type: "password"})}
+            {createField(undefined, "rememberMe", [], Input, {type: "checkbox"})}
             {error&&<div className={styles.error}>{error}</div>}
             <div>
                 <button>Login</button>

@@ -1,31 +1,48 @@
-import React from "react";
-import classes from './ProfileInfo.module.css';
+import React, {ChangeEvent, useState} from "react";
+import classes from './ProfileInfo.module.scss';
 import {ProfileUserType} from "../../../redux/contentReducer";
 import {Preloader} from "../../common/Preloader/preloader";
 import userImage from '../../../assets/userImage.jpeg'
 import {ProfileStatus} from "../Ava/ProfileStatus";
+import {UserPhotoType} from "../../../api/api";
+import {Contact} from "./contact/contact";
+import {ProfileData} from "./profileData/ProfileData";
+import {ProfileDataForm} from "./profileDataForm/ProfileDataForm";
 
 type ProfileInfoPropsType = {
-    profile:ProfileUserType
+    profile: ProfileUserType
     status: string
-    updateStatusThunk: (text: string)=>void
+    updateStatusThunk: (text: string) => void
+    isOwner: boolean
+    saveFoto: (file: UserPhotoType) => void
 }
 
-export function ProfileInfo({profile,status, updateStatusThunk}: ProfileInfoPropsType) {
+export function ProfileInfo({profile, status, updateStatusThunk, isOwner, saveFoto}: ProfileInfoPropsType) {
+    const[editMode, setEditMode] = useState<boolean>(false)
     if (!profile) {
         <Preloader/>
     }
+    console.log(profile.aboutMe)
+    const fotoSelector = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            saveFoto(e.target.files[0])
+        }
+    }
     return (
 
-        <div className={classes.profileItem}>
-            <img src={profile.photos.small ? profile.photos.small : userImage}
+        <div className={classes.profileBlock}>
+            <img src={profile.photos.small || profile.photos.large || userImage}
                  alt={'user image'}/>
-            <div>{profile.fullName}</div>
-            <span>{profile.aboutMe}</span>
-            <span>{profile.lookingForAJobDescription}</span>
+            {isOwner && <input type={'file'} onChange={fotoSelector}/>}
             <ProfileStatus status={status} callback={updateStatusThunk}/>
+            { editMode
+                ?<ProfileDataForm profile={profile} saveChanges={()=>{}}/>
+                :<ProfileData profile={profile} isOwner={isOwner} goToEditMode={()=>setEditMode(true)}/>}
+
+
 
 
         </div>
     )
 }
+

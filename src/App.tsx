@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {HashRouter, Route, withRouter} from "react-router-dom";
+import {HashRouter as Router, Route, withRouter} from "react-router-dom";
 import {NavBarContainer} from "./components/Navbar/NavBarContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -21,6 +21,7 @@ class App extends React.Component<AppPropsType> {
         this.props.initializeAppThunk()
 
     }
+
 
     render() {
         if (!this.props.isInitialized) {
@@ -63,11 +64,13 @@ const AppContainer = compose<React.ComponentType>(withRouter, connect(mapStateTo
 const SocialNetworkApp = () => {
     return (
         // <div>MY APP</div>
-        <HashRouter basename={process.env.PUBLIC_URL}>
+        <Router
+            // basename={process.env.PUBLIC_URL}
+        >
             <Provider store={store}>
                 <AppContainer/>
             </Provider>
-        </HashRouter>
+        </Router>
     )
 }
 export default SocialNetworkApp

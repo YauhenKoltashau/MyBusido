@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {profileAPI, userAPI} from "../api/api";
+import {profileAPI, userAPI, UserPhotoType} from "../api/api";
 import {AppActionsType, AppThunkType} from "./redux-store";
 
 export type ContentActionCreatorTypes = ReturnType<typeof addPostAC>
@@ -7,23 +7,24 @@ export type ContentActionCreatorTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof setIsFetching>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof deletePostAC>
-
+    | ReturnType<typeof setFotoSuccess>
+export type ContactsType = {
+    facebook: null | string
+    website: null | string
+    vk: null | string
+    twitter: null | string
+    instagram: null | string
+    youtube: null | string
+    github: null | string
+    mainLink: null | string
+} | any
 export type ProfileUserType = {
-    aboutMe: string,
-    contacts: {
-        facebook: string,
-        website: null,
-        vk: string,
-        twitter: string,
-        instagram: string,
-        youtube: null,
-        github: string,
-        mainLink: null
-    },
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string,
-    fullName: string,
-    userId: number,
+    aboutMe: string
+    contacts: ContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
     photos: {
         small: string | null,
         large: string | null
@@ -39,6 +40,7 @@ export type ContentPageType = {
     postsData: PostsDataType
     profile: ProfileUserType
     currentStatus: string
+    // isOwner: boolean
 }
 
 const ADD_POST = 'content/ADD-POST'
@@ -46,14 +48,17 @@ const DELETE_POST = 'content/DELETE-POST'
 const SET_USER_PROFILE = 'content/SET-USER-PROFILE'
 const SET_IS_FETCHING = 'content/SET-IS-FETCHING'
 const SET_PROFILE_STATUS = 'content/SET-PROFILE-STATUS'
+const SET_PROFILE_FOTO = 'content/SET-PROFILE-FOTO'
 
-export const addPostAC = (newPost:string) => ({type: ADD_POST, newPost} as const)
-export const deletePostAC = (id: string) => ({type: DELETE_POST,id} as const)
-export const setUserProfile = (profile: ProfileUserType) =>({type: SET_USER_PROFILE, profile: profile} as const)
-export const setIsFetching = (isFetching: boolean) => ({type: SET_IS_FETCHING, isFetching: isFetching } as const)
+export const addPostAC = (newPost: string) => ({type: ADD_POST, newPost} as const)
+export const deletePostAC = (id: string) => ({type: DELETE_POST, id} as const)
+export const setUserProfile = (profile: ProfileUserType) => ({type: SET_USER_PROFILE, profile: profile} as const)
+export const setIsFetching = (isFetching: boolean) => ({type: SET_IS_FETCHING, isFetching: isFetching} as const)
 export const setStatus = (status: string) => ({type: SET_PROFILE_STATUS, status} as const)
+export const setFotoSuccess = (data: any) =>  ({type: SET_PROFILE_FOTO, data} as const)
 
-export const getUserByIdThunk = (userId: number):AppThunkType => {
+
+export const getUserByIdThunk = (userId: number): AppThunkType => {
     return (dispatch) => {
         userAPI.getUserById(userId).then(data => {
                 dispatch(setUserProfile(data))
@@ -64,25 +69,29 @@ export const getUserByIdThunk = (userId: number):AppThunkType => {
 }
 export const getUserStatusThunk = (userId: number): AppThunkType => {
     return (dispatch) => {
-        profileAPI.getStatus(userId).then(response=> {
+        profileAPI.getStatus(userId).then(response => {
                 dispatch(setStatus(response.data))
 
             }
         )
     }
 }
-export const updateStatusThunk = (status: string):AppThunkType => {
-    debugger
-    return (dispatch) => {
-        profileAPI.updateStatus(status).then(data => {
-            if(data.resultCode === 0){
-                dispatch(setStatus(status))
-            }
-
-            }
-        )
+export const updateStatusThunk = (status: string): AppThunkType => {
+    return async (dispatch) => {
+        let response = await profileAPI.updateStatus(status)
+                if (response.resultCode === 0) {
+                    dispatch(setStatus(status))
+                }
     }
 
+}
+export const saveFotoThunk = (file: UserPhotoType): AppThunkType => {
+    return async (dispatch) => {
+       let response =  await profileAPI.saveFoto(file)
+                if (response.resultCode === 0) {
+                    dispatch(setFotoSuccess(response.data))
+                }
+    }
 }
 
 const initialState: ContentPageType = {
@@ -102,7 +111,7 @@ const initialState: ContentPageType = {
             github: '',
             mainLink: null
         },
-        lookingForAJob: true,
+        lookingForAJob: false,
         lookingForAJobDescription: '',
         fullName: '',
         userId: 24371,
@@ -111,7 +120,8 @@ const initialState: ContentPageType = {
             large: null
         }
     },
-    currentStatus: 'write your current status'
+    currentStatus: 'write your current status',
+    // isOwner: false
 }
 
 export const contentReducer = (state: ContentPageType = initialState, action: AppActionsType): ContentPageType => {
@@ -122,9 +132,11 @@ export const contentReducer = (state: ContentPageType = initialState, action: Ap
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
         case SET_PROFILE_STATUS:
-            return {...state,currentStatus: action.status}
+            return {...state, currentStatus: action.status}
+        case SET_PROFILE_FOTO:
+            return {...state, profile: {...state.profile,photos: action.data.photos}}
         case DELETE_POST:
-            return {...state,postsData: state.postsData.filter(p=>p.id !== action.id)}
+            return {...state, postsData: state.postsData.filter(p => p.id !== action.id)}
         default:
 
             return state

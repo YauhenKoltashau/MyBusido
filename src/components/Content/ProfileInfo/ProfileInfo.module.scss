@@ -1,0 +1,27 @@
+.profileBlock{
+    color: darkblue;
+    img {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 90px;
+        width: 90px;
+        border-radius: 50px;
+        left: 0;
+        bottom: -10px;
+        transition: .5s;
+        @media screen and (max-width: 600px) {
+                height: 250px;
+                width: 250px;
+                transition: .5s;
+        }
+    }
+    .status {
+        border: 1px solid black;
+    }
+    .contactBlock {
+        border: 1px solid;
+    }
+}
+
+

@@ -14,6 +14,7 @@ export const ProfileStatus = (props:{status: string, callback:(status: string)=>
             {/*    <StatusClassComponent title={props.status} callback={props.callback}/>*/}
             {/*</div>*/}
             <div className={classes.item}>
+                <b>Status:</b>
                 <StatusFunctionComponent title={props.status} callback={props.callback}/>
             </div>
 
