@@ -1,6 +1,7 @@
 import {v1} from "uuid";
 import {profileAPI, userAPI, UserPhotoType} from "../api/api";
 import {AppActionsType, AppThunkType} from "./redux-store";
+import {ProfileUpdateDataType} from "../components/Content/ProfileInfo/profileDataForm/ProfileDataForm";
 
 export type ContentActionCreatorTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof setUserProfile>
@@ -90,6 +91,17 @@ export const saveFotoThunk = (file: UserPhotoType): AppThunkType => {
        let response =  await profileAPI.saveFoto(file)
                 if (response.resultCode === 0) {
                     dispatch(setFotoSuccess(response.data))
+                }
+    }
+}
+export const saveProfileDataThunk = (profile: ProfileUpdateDataType): AppThunkType => {
+    return async (dispatch,getState) => {
+       let response =  await profileAPI.saveProfile(profile)
+        const userTd = getState().auth.id
+                if (response.resultCode === 0) {
+                    if(userTd){
+                        dispatch(getUserByIdThunk(userTd))
+                    }
                 }
     }
 }

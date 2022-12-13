@@ -7,7 +7,7 @@ import {ProfileStatus} from "../Ava/ProfileStatus";
 import {UserPhotoType} from "../../../api/api";
 import {Contact} from "./contact/contact";
 import {ProfileData} from "./profileData/ProfileData";
-import {ProfileDataForm} from "./profileDataForm/ProfileDataForm";
+import {ProfileDataForm, ProfileDataReduxForm, ProfileUpdateDataType,} from "./profileDataForm/ProfileDataForm";
 
 type ProfileInfoPropsType = {
     profile: ProfileUserType
@@ -15,14 +15,18 @@ type ProfileInfoPropsType = {
     updateStatusThunk: (text: string) => void
     isOwner: boolean
     saveFoto: (file: UserPhotoType) => void
+    saveProfileData: (updateProfileData: ProfileUpdateDataType) => void
 }
 
-export function ProfileInfo({profile, status, updateStatusThunk, isOwner, saveFoto}: ProfileInfoPropsType) {
+export function ProfileInfo({profile, status, updateStatusThunk, isOwner, saveFoto, saveProfileData}: ProfileInfoPropsType) {
     const[editMode, setEditMode] = useState<boolean>(false)
+    const onSubmitProfileData = async(formData: ProfileUpdateDataType) => {
+        await saveProfileData(formData)
+        setEditMode(false)
+    }
     if (!profile) {
         <Preloader/>
     }
-    console.log(profile.aboutMe)
     const fotoSelector = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             saveFoto(e.target.files[0])
@@ -36,7 +40,7 @@ export function ProfileInfo({profile, status, updateStatusThunk, isOwner, saveFo
             {isOwner && <input type={'file'} onChange={fotoSelector}/>}
             <ProfileStatus status={status} callback={updateStatusThunk}/>
             { editMode
-                ?<ProfileDataForm profile={profile} saveChanges={()=>{}}/>
+                ?<ProfileDataReduxForm initialValues={profile} onSubmit={onSubmitProfileData} />
                 :<ProfileData profile={profile} isOwner={isOwner} goToEditMode={()=>setEditMode(true)}/>}
 
 

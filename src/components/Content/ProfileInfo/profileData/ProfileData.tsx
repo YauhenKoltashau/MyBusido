@@ -10,14 +10,16 @@ type ProfileDataPropsType = {
 }
 
 export const ProfileData = ({profile,isOwner,goToEditMode}:ProfileDataPropsType) => {
+    console.log(profile)
   return(
       <div className={styles.profileDataBlock}>
-          {isOwner&&<div><button onClick={goToEditMode}>edit</button></div>}
+          {isOwner&&<div><button onClick={goToEditMode}>Edit</button></div>}
           <div><b>I'm:</b> {profile.fullName}</div>
-          <div><b>About me:</b> {profile.aboutMe ? <div>{profile.aboutMe}</div> : 'no info'}</div>
-          <div><b>Skills:</b> {!profile.lookingForAJob ? 'no' : 'yes'}</div>
-          <div><b>Description</b>: {profile.lookingForAJobDescription ?
+
+          <div><b>Looking for a job:</b> {!profile.lookingForAJob ? 'no' : 'yes'}</div>
+          <div><b>My skills:</b> {profile.lookingForAJobDescription ?
               <div>{profile.lookingForAJobDescription}</div> : 'no info'}</div>
+          <div><b>About me:</b> {profile.aboutMe ? <div>{profile.aboutMe}</div> : 'no info'}</div>
           <div className={styles.contactBlock}>
               <b>Contacts:</b>
               {Object.keys(profile.contacts).map((key) => {

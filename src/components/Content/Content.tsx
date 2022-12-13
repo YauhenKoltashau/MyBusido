@@ -4,9 +4,12 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfileContainerPropsType} from "./ProfileContainer";
 import {UserPhotoType} from "../../api/api";
+import {ProfileUpdateDataType} from "./ProfileInfo/profileDataForm/ProfileDataForm";
+
 type ProfileInfoAdditionalType = {
     isOwner: boolean
     saveFoto: (file: UserPhotoType)=> void
+    saveProfileData:(updateProfileData: ProfileUpdateDataType) => void
 }
 
 export const Content= (props: ProfileContainerPropsType & ProfileInfoAdditionalType) => {
@@ -17,6 +20,7 @@ export const Content= (props: ProfileContainerPropsType & ProfileInfoAdditionalT
                          updateStatusThunk={props.updateStatusThunk}
                          isOwner={props.isOwner}
                          saveFoto={props.saveFoto}
+                         saveProfileData={props.saveProfileData}
             />
             <MyPostsContainer/>
 
