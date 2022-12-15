@@ -20,9 +20,16 @@ type ProfileInfoPropsType = {
 
 export function ProfileInfo({profile, status, updateStatusThunk, isOwner, saveFoto, saveProfileData}: ProfileInfoPropsType) {
     const[editMode, setEditMode] = useState<boolean>(false)
-    const onSubmitProfileData = async(formData: ProfileUpdateDataType) => {
-        await saveProfileData(formData)
-        setEditMode(false)
+    const onSubmitProfileData = (formData: ProfileUpdateDataType) => {
+        try{
+            saveProfileData(formData)
+            // setEditMode(false)
+        }
+        catch (e) {
+
+        }
+
+
     }
     if (!profile) {
         <Preloader/>
@@ -40,7 +47,7 @@ export function ProfileInfo({profile, status, updateStatusThunk, isOwner, saveFo
             {isOwner && <input type={'file'} onChange={fotoSelector}/>}
             <ProfileStatus status={status} callback={updateStatusThunk}/>
             { editMode
-                ?<ProfileDataReduxForm initialValues={profile} onSubmit={onSubmitProfileData} />
+                ?<ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={onSubmitProfileData} />
                 :<ProfileData profile={profile} isOwner={isOwner} goToEditMode={()=>setEditMode(true)}/>}
 
 
