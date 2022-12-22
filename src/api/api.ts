@@ -26,8 +26,8 @@ export const userAPI = {
     unFollowUser(userId: number) {
         return instance.delete(`/follow/${userId}`)
     },
-    logIn(email:string, password: string, rememberMe: boolean = false) {
-        return authAPI.logIn(email, password, rememberMe)
+    logIn(email:string, password: string, rememberMe: boolean = false, captcha:string | null = null) {
+        return authAPI.logIn(email, password, rememberMe, captcha)
     },
     logOut() {
         return authAPI.logOut()
@@ -62,12 +62,18 @@ export const profileAPI = {
 
 }
 export const authAPI = {
-    logIn(email:string, password: string, rememberMe: boolean = false) {
-        return instance.post('/auth/login',{email, password, rememberMe })
+    logIn(email:string, password: string, rememberMe: boolean = false, captcha: string | null = null) {
+        return instance.post('/auth/login',{email, password, rememberMe, captcha })
     },
     logOut() {
         return instance.delete('/auth/login')
     }
 }
+export const securityAPI = {
+    getCaptcha() {
+        return instance.get('/security/get-captcha-url')
+    },
+}
+
 export type UserPhotoType = string | Blob
 

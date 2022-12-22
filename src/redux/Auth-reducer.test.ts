@@ -5,6 +5,7 @@ test("authMe function should be worked",()=>{
         login:null,
         email: null,
         isAuth: false,
+        captchaUrl: null,
     }
     const action = setAuthUserData(3286, "newLogin", "coolEmail.com",true)
     const newState = authReducer(oldState,action)
@@ -20,6 +21,7 @@ test("logOut should be worked",()=>{
         login:"mdnckd",
         email: "mdnckd@gmail.com",
         isAuth: true,
+        captchaUrl: null,
     }
     const action = setLogOut(null, null, null,false)
     const newState = authReducer(oldState,action)

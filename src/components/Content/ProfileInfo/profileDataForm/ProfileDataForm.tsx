@@ -4,7 +4,6 @@ import {createField, Input, Texarea} from "../../../common/FormControls/FormCont
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {ProfileUserType} from "../../../../redux/contentReducer";
 import s from "../contact/Contact.module.scss"
-import {log} from "util";
 
 interface IProps {
     profile: ProfileUserType;
