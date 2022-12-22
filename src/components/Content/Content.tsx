@@ -9,7 +9,7 @@ import {ProfileUpdateDataType} from "./ProfileInfo/profileDataForm/ProfileDataFo
 type ProfileInfoAdditionalType = {
     isOwner: boolean
     saveFoto: (file: UserPhotoType)=> void
-    saveProfileData:(updateProfileData: ProfileUpdateDataType) => void
+    saveProfileData:(updateProfileData: ProfileUpdateDataType) => Promise<any>
 }
 
 export const Content= (props: ProfileContainerPropsType & ProfileInfoAdditionalType) => {

@@ -15,19 +15,23 @@ type ProfileInfoPropsType = {
     updateStatusThunk: (text: string) => void
     isOwner: boolean
     saveFoto: (file: UserPhotoType) => void
-    saveProfileData: (updateProfileData: ProfileUpdateDataType) => void
+    saveProfileData: (updateProfileData: ProfileUpdateDataType) => Promise<any>
 }
 
-export function ProfileInfo({profile, status, updateStatusThunk, isOwner, saveFoto, saveProfileData}: ProfileInfoPropsType) {
-    const[editMode, setEditMode] = useState<boolean>(false)
+export function ProfileInfo({
+                                profile,
+                                status,
+                                updateStatusThunk,
+                                isOwner,
+                                saveFoto,
+                                saveProfileData
+                            }: ProfileInfoPropsType) {
+    const [editMode, setEditMode] = useState<boolean>(false)
     const onSubmitProfileData = (formData: ProfileUpdateDataType) => {
-        try{
-            saveProfileData(formData)
-            // setEditMode(false)
-        }
-        catch (e) {
+        saveProfileData(formData).then(()=>{
+            setEditMode(false)
+        })
 
-        }
 
 
     }
@@ -46,11 +50,9 @@ export function ProfileInfo({profile, status, updateStatusThunk, isOwner, saveFo
                  alt={'user image'}/>
             {isOwner && <input type={'file'} onChange={fotoSelector}/>}
             <ProfileStatus status={status} callback={updateStatusThunk}/>
-            { editMode
-                ?<ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={onSubmitProfileData} />
-                :<ProfileData profile={profile} isOwner={isOwner} goToEditMode={()=>setEditMode(true)}/>}
-
-
+            {editMode
+                ? <ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={onSubmitProfileData}/>
+                : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => setEditMode(true)}/>}
 
 
         </div>

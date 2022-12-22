@@ -96,15 +96,17 @@ export const saveFotoThunk = (file: UserPhotoType): AppThunkType => {
     }
 }
 export const saveProfileDataThunk = (profile: ProfileUpdateDataType): AppThunkType => {
-    const parseString = (str: string) => {
-        let parseMessageToArray = str.split(/[ -.:;?!~,`"&|()<>{}\[\]\r\n/\\]+/)
-        for (let i = 0; i < parseMessageToArray.length; i++) {
-            if (parseMessageToArray[i].toLowerCase() === 'contacts') {
-                return {
-                    [parseMessageToArray[i + 1].toLowerCase()]: str,
+    const parseErrorMessages = (errors: string[]) => {
+        let resultError = {}
+        errors.forEach(error=>{
+            let parseMessageToArray = error.split(/[ -.:;?!~,`"&|()<>{}\[\]\r\n/\\]+/)
+            for (let i = 0; i < parseMessageToArray.length; i++) {
+                if (parseMessageToArray[i].toLowerCase() === 'contacts') {
+                    resultError = {...resultError, [parseMessageToArray[i + 1].toLowerCase()]: error}
                 }
             }
-        }
+        })
+        return resultError
     }
     return async (dispatch, getState) => {
         let response = await profileAPI.saveProfile(profile)
@@ -114,9 +116,9 @@ export const saveProfileDataThunk = (profile: ProfileUpdateDataType): AppThunkTy
                 dispatch(getUserByIdThunk(userTd))
             }
         } else {
-            if (response.messages[0].length > 0) {
-                console.log(response)
-                dispatch(stopSubmit('edit-profile', {'contacts': parseString(response.messages[0])}))
+            if (response.messages[0].length>0) {
+                dispatch(stopSubmit('edit-profile', {'contacts': parseErrorMessages(response.messages)}))
+                return Promise.reject('something is wrong')
             }
 
 
