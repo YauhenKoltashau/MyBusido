@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styles from './Paginator.module.css'
 import {v1} from "uuid";
+import cn from 'classnames'
 
 type PageType = {
     id: string,
@@ -38,7 +39,7 @@ export const Paginator: React.FC<PaginatorPropsType> = ({
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     let rigthPortionPageNumber = portionNumber * portionSize
     return (
-        <div className={styles.pageBlock}>
+        <div className={cn(styles.pageBlock)}>
             {portionNumber>1 && <button onClick={() => {
                 setPortionNumber(1)
             }} className={styles.firstItem}>1</button>}
