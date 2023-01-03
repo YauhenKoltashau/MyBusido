@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {HashRouter as Router, Route, withRouter} from "react-router-dom";
+import {HashRouter as Router, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {NavBarContainer} from "./components/Navbar/NavBarContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -33,11 +33,18 @@ class App extends React.Component<AppPropsType> {
                 <NavBarContainer/>
 
                 <div className={"app-wrapper-content"}>
+                    <Switch>
+                        <Route exact path={'/'} render={() => <Redirect to={'/login'}/>}/>
+                        <Route path={'/dialogs'} render={withlazyLoading(DialogsContainer)}/>
+                        <Route path={'/profile/:userId?'} render={withlazyLoading(ProfileContainer)}/>
+                        <Route path={'/users'} render={() => <UsersContainer/>}/>
+                        <Route path={'/news'} render={() => <div>News</div>}/>
+                        <Route path={'/music'} render={() => <div>Music</div>}/>
+                        <Route path={'/settings'} render={() => <div>Settings</div>}/>
+                        <Route path={'/login'} render={withlazyLoading(Login)}/>
+                        <Route path={'*'} render={() => <div> 404 Not found</div>}/>
 
-                    <Route path={'/dialogs'} render={withlazyLoading(DialogsContainer)}/>
-                    <Route path={'/profile/:userId?'} render={withlazyLoading(ProfileContainer)}/>
-                    <Route path={'/users'} render={() => <UsersContainer/>}/>
-                    <Route path={'*'} render={withlazyLoading(Login)}/>
+                    </Switch>
                 </div>
             </div>
 
