@@ -39,7 +39,7 @@ export const Paginator: React.FC<PaginatorPropsType> = ({
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     let rigthPortionPageNumber = portionNumber * portionSize
     return (
-        <div className={cn(styles.pageBlock)}>
+        <div className={styles.pageBlock}>
             {portionNumber>1 && <button onClick={() => {
                 setPortionNumber(1)
             }} className={styles.firstItem}>1</button>}
@@ -49,7 +49,10 @@ export const Paginator: React.FC<PaginatorPropsType> = ({
             {pages.filter(p => p.number >= leftPortionPageNumber && p.number <= rigthPortionPageNumber)
                 .map((p) => {
                     return (<span key={p.id} onClick={() => onClickPageChosen(p.number)}
-                              className={currentPageNumber === p.number ? styles.chosedPage : styles.unChosedPage}>{p.number}</span>
+                              className={
+                                  cn(styles.unChosedPage, {[styles.chosedPage]: currentPageNumber === p.number})
+                                  // currentPageNumber === p.number ? styles.chosedPage : styles.unChosedPage
+                              }>{p.number}</span>
                                                )
                 })
             }

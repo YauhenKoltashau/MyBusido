@@ -7,9 +7,10 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import {Preloader} from "./components/common/Preloader/preloader";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
-import {initializeAppThunk} from "./redux/AppReducer";
+import {globalErrorThunk, initializeAppThunk} from "./redux/AppReducer";
 import store, {AppStateType} from "./redux/redux-store";
 import {withlazyLoading} from "./hoc/withlazyLoading";
+import {ErrorSnack} from "./components/ErrorSnack/ErrorSnack";
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Content/ProfileContainer'));
@@ -17,9 +18,19 @@ const Login = React.lazy(() => import('./components/Login/Login'));
 
 
 class App extends React.Component<AppPropsType> {
+    catchAllUnhandledErrors = (event: PromiseRejectionEvent) => {
+        globalErrorThunk(event.reason)
+    }
     componentDidMount() {
         this.props.initializeAppThunk()
-
+        window.addEventListener('unhandledrejection', (event) =>{
+            this.catchAllUnhandledErrors(event)
+        });
+    }
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', (event) =>{
+            this.catchAllUnhandledErrors(event)
+        });
     }
 
 
@@ -31,6 +42,7 @@ class App extends React.Component<AppPropsType> {
             <div className={"app-wrapper"}>
                 <HeaderContainer/>
                 <NavBarContainer/>
+                <ErrorSnack />
 
                 <div className={"app-wrapper-content"}>
                     <Switch>
