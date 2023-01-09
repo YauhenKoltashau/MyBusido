@@ -19,7 +19,7 @@ const Login = React.lazy(() => import('./components/Login/Login'));
 
 class App extends React.Component<AppPropsType> {
     catchAllUnhandledErrors = (event: PromiseRejectionEvent) => {
-        globalErrorThunk(event.reason)
+        this.props.globalErrorThunk(event.reason)
     }
     componentDidMount() {
         this.props.initializeAppThunk()
@@ -42,7 +42,7 @@ class App extends React.Component<AppPropsType> {
             <div className={"app-wrapper"}>
                 <HeaderContainer/>
                 <NavBarContainer/>
-                <ErrorSnack />
+                {this.props.globalError&&<ErrorSnack/>}
 
                 <div className={"app-wrapper-content"}>
                     <Switch>
@@ -67,13 +67,16 @@ class App extends React.Component<AppPropsType> {
 type AppPropsType = mapDispatchToPropsType & mapStateToPropsType
 type mapStateToPropsType = {
     isInitialized: boolean
+    globalError: string
 }
 type mapDispatchToPropsType = {
     initializeAppThunk: () => void
+    globalErrorThunk: (error: string) => void
 }
 const mapStateToProps = (state: AppStateType) => {
     return {
-        isInitialized: state.initialize.isInitialized
+        isInitialized: state.initialize.isInitialized,
+        globalError: state.initialize.globalError
     }
 }
 
