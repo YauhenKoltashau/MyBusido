@@ -25,8 +25,8 @@ export const initializeAppThunk = (): AppThunkType => (dispatch) => {
     // })
 }
 export const globalErrorThunk = (error: string): AppThunkType => (dispatch) => {
-        dispatch(setGlobalAppError(error))
-    setTimeout(()=>{
+    dispatch(setGlobalAppError(error))
+    setTimeout(() => {
         dispatch(setGlobalAppError(null))
     }, 3000)
 }
@@ -54,8 +54,8 @@ export type InitializeActionTypes =
     | ReturnType<typeof setGlobalAppError>
 export const initializeAppCreator = () => ({
     type: INITIALIZE_APP,
-})as const
-export const setGlobalAppError = (error: string| null) => ({
+}) as const
+export const setGlobalAppError = (error: string | null) => ({
     type: SET_GLOBAL_ERROR,
     error
 }) as const

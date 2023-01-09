@@ -42,7 +42,7 @@ class App extends React.Component<AppPropsType> {
             <div className={"app-wrapper"}>
                 <HeaderContainer/>
                 <NavBarContainer/>
-                {this.props.globalError&&<ErrorSnack/>}
+                {this.props.globalError&&<ErrorSnack error={this.props.globalError}/>}
 
                 <div className={"app-wrapper-content"}>
                     <Switch>
@@ -81,7 +81,7 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 
-const AppContainer = compose<React.ComponentType>(withRouter, connect(mapStateToProps, {initializeAppThunk}))(App)
+const AppContainer = compose<React.ComponentType>(withRouter, connect(mapStateToProps, {initializeAppThunk, globalErrorThunk}))(App)
 
 const SocialNetworkApp = () => {
     return (

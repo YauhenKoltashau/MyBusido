@@ -1,6 +1,14 @@
 .globalError {
   position: absolute;
-  width: 100px;
+  border-radius: 5px;
+  z-index: 1;
+  opacity: 0.8;
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+  left: 400px;
+  bottom: 30px;
+  min-width: 100px;
   height: 40px;
   background-color: red;
 }
