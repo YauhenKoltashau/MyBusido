@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/MyBusido/static/css/main.7f14a90d.css",
-    "main.js": "/MyBusido/static/js/main.8de61aa3.js",
+    "main.css": "/MyBusido/static/css/main.eb2395d8.css",
+    "main.js": "/MyBusido/static/js/main.82f53142.js",
     "static/css/320.05e2169d.chunk.css": "/MyBusido/static/css/320.05e2169d.chunk.css",
     "static/js/320.3cbb89de.chunk.js": "/MyBusido/static/js/320.3cbb89de.chunk.js",
     "static/css/988.652da00b.chunk.css": "/MyBusido/static/css/988.652da00b.chunk.css",
@@ -11,8 +11,8 @@
     "static/js/434.e199f8cc.chunk.js": "/MyBusido/static/js/434.e199f8cc.chunk.js",
     "static/media/Spin2.svg": "/MyBusido/static/media/Spin2.8ffc78154ab38cf94b50565cef41b0d8.svg",
     "index.html": "/MyBusido/index.html",
-    "main.7f14a90d.css.map": "/MyBusido/static/css/main.7f14a90d.css.map",
-    "main.8de61aa3.js.map": "/MyBusido/static/js/main.8de61aa3.js.map",
+    "main.eb2395d8.css.map": "/MyBusido/static/css/main.eb2395d8.css.map",
+    "main.82f53142.js.map": "/MyBusido/static/js/main.82f53142.js.map",
     "320.05e2169d.chunk.css.map": "/MyBusido/static/css/320.05e2169d.chunk.css.map",
     "320.3cbb89de.chunk.js.map": "/MyBusido/static/js/320.3cbb89de.chunk.js.map",
     "988.652da00b.chunk.css.map": "/MyBusido/static/css/988.652da00b.chunk.css.map",
@@ -22,7 +22,7 @@
     "434.e199f8cc.chunk.js.map": "/MyBusido/static/js/434.e199f8cc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7f14a90d.css",
-    "static/js/main.8de61aa3.js"
+    "static/css/main.eb2395d8.css",
+    "static/js/main.82f53142.js"
   ]
 }
