@@ -98,7 +98,7 @@ export const saveFotoThunk = (file: UserPhotoType): AppThunkType => {
 export const saveProfileDataThunk = (profile: ProfileUpdateDataType): AppThunkType => {
     const parseErrorMessages = (errors: string[]) => {
         let resultError = {}
-        errors.forEach(error=>{
+        errors.forEach(error => {
             let parseMessageToArray = error.split(/[ -.:;?!~,`"&|()<>{}\[\]\r\n/\\]+/)
             for (let i = 0; i < parseMessageToArray.length; i++) {
                 if (parseMessageToArray[i].toLowerCase() === 'contacts') {
@@ -116,14 +116,10 @@ export const saveProfileDataThunk = (profile: ProfileUpdateDataType): AppThunkTy
                 dispatch(getUserByIdThunk(userTd))
             }
         } else {
-            if (response.messages[0].length>0) {
+            if (response.messages[0].length > 0) {
                 dispatch(stopSubmit('edit-profile', {'contacts': parseErrorMessages(response.messages)}))
                 return Promise.reject('something is wrong')
             }
-
-
-
-
         }
     }
 }
